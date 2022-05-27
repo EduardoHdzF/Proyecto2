@@ -70,7 +70,9 @@ public class Juego{
 		Bienvenida();
 		Jugadores();
 		
-		tablero.dibujaTablero(0);
+		tablero.dibujaTablero(0);		
+		System.out.println(tablero.dibujaFicha());
+		
     }
     
     
