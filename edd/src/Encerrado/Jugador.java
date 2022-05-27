@@ -1,6 +1,6 @@
 package edd.src.Encerrado;
 
-import src.Estructuras.*;
+import edd.src.Estructuras.*;
 
 
 /**
