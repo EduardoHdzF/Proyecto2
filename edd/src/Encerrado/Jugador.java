@@ -8,10 +8,11 @@ import src.Estructuras.*;
 * @author Estrada García Luis Gerardo - 319013832
 * @author Hernandez Floriano Eduardo - 319121498
  */
-public class Jugador(){
+public class Jugador{
 	
 	private String nombre;	
-
+	
+	
 	public Jugador(){
 		nombre = "Jugador";
 	}
@@ -23,10 +24,8 @@ public class Jugador(){
 		return this.nombre;
 	}
 	
-	public String toString(){
-		
-		return this.nombre;
-		
+	public String toString(){		
+		return this.nombre;		
 	}
 	
 }	
