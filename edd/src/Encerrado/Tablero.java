@@ -102,13 +102,16 @@ public class Tablero{
 		}
 		System.out.println(dibujo);
 	}
-	
+	/**
+	 * Nos dibuja las fichas en forma de String
+	 */
 	public void dibujaFicha(int o){
 	
 		if(o == 0){
 			System.out.println("  \033[91m⢠⣶⣿⣿⣶⡄    \033[96m⢠⣶⣿⣿⣶⡄    \033[91m⢠⣶⣿⣿⣶⡄    \033[96m⢠⣶⣿⣿⣶⡄");
 			System.out.println("  \033[91m⣿⣿⣿⣿⣿⣿    \033[96m⣿⣿⣿⣿⣿⣿    \033[91m⣿⣿⣿⣿⣿⣿    \033[96m⣿⣿⣿⣿⣿⣿");;
 			System.out.println("  \033[91m⠘⠿⣿⣿⠿⠃    \033[96m⠘⠿⣿⣿⠿⠃    \033[91m⠘⠿⣿⣿⠿⠃    \033[96m⠘⠿⣿⣿⠿⠃\033[39m");
+			System.out.println("  Ficha 1   Ficha 2   Ficha 3   Ficha 4");
 		}else if( o == 1){
 		
 			System.out.println("            \033[91m⢠⣶⣿⣿⣶⡄    \033[91m⢠⣶⣿⣿⣶⡄   ");
@@ -124,6 +127,9 @@ public class Tablero{
 			
 	}
 	
+	/**
+	 * Nos dibuja la posición inicial del tablero por defecto.
+	 */
 	public void pInicial(){
 		
 		f2 = "\033[96m" + f2 + "\033[39m";
@@ -144,5 +150,16 @@ public class Tablero{
 		
 		dibujaTablero(2);
 		
+	}
+	
+	/**
+	 * Nos posiciona la ficha en la posición deseada
+	 */
+	public void mueveFicha(String f, int p){
+	
+		if(f.contains("1")){
+			
+		}	
+	
 	}
 }

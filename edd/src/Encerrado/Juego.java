@@ -29,7 +29,7 @@ public class Juego{
 	/*
      * Mensaje de bienvenida
      */
-    public void Bienvenida() {
+    public void bienvenida() {
 		System.out.println("\n\033[96m-------- Hola, bienvenido al juedo del encerrado --------\033[39m\n");				
 		System.out.println("\033[5m                Presione ENTER para jugar\033[25m");		
 		System.out.println("\n El juego consiste en lograr que las piezas del oponente"); 
@@ -39,17 +39,30 @@ public class Juego{
     }
 	
 	/**
+	 * Despliega las instrucciones del juego.
+	 */
+	public void intrucciones(){
+	
+	
+	}
+	
+	/**
 	 * Registra el nombre de los jugadores o selecciona si desea jugar con la máquina.
 	 */
-	public void Jugadores(){			
+	public void jugadores(){			
 		
 		System.out.println("     Ingrese el nombre del Jugador 1");
+				
 		String n = entrada.nextLine();
 		Jugador q = new Jugador();
-		if(n != "" || n != null){
+		
+		if(n != ""){
 			q.setNombre(n);
+			
 		}else{
+			
 			q.setNombre("Jugador 1");
+			
 		}
 		
 		jugadores.push(q);
@@ -65,17 +78,18 @@ public class Juego{
 		 	n = entrada.nextLine();
 		 	q = new Jugador();
 		 	
-		 	if(n != "" || n != null){
+		 	if(n != ""){
 				q.setNombre(n);
 			}else{
-				q.setNombre("Jugador 1");
+			
+				q.setNombre("Jugador 2");
 			}
 		 	
 		 	jugadores.push(q);
 		 	
 		}else if(r.equals("n") || r.equals("")){
 		 	
-		 	System.out.println("\n>> Jugará con la máquina <<\n");
+		 	System.out.println("\n>> Jugará con la máquina <<");
 		 	
 		 	maquina = true;
 		 	
@@ -88,36 +102,54 @@ public class Juego{
      * Nos da la bienvenida y es en escencia donde se mueve el juego.
      */
     public void corre(){
+    
 		System.out.println("\033[H\033[2J");
-		System.out.flush();
-		Bienvenida();
-		Jugadores();
+		//System.out.flush();		
+		bienvenida();
+		jugadores();
 		
-		tablero.dibujaTablero(0);		
+		Jugador j = jugadores.pop();
+		
+		System.out.println("\nJugador 1: " + j.getNombre());
+		jugadores.push(j);
+		
+		if(maquina != true){
+			j = jugadores.pop();
+			System.out.println("\nJugador 2: " + j.getNombre());
+			jugadores.push(j);
+		}
+		System.out.println("\nElementos del juego: Un tablero con 5 posiciones:");
+		System.out.println("las numeradas del 1 al 4 y la posición 5 que es la del centro.\n");
+				
+		//System.out.println("    Numerando de izquieda a derecha, eligiendo la posición deseada\n");
+		
+		
+		tablero.dibujaTablero(0);				
 		tablero.dibujaFicha(0);
 		
-		System.out.println("\n Presione ENTER para continuar");
-		entrada.nextLine();
-		System.out.println("\033[H\033[2J");
-		System.out.println("\n        Escoja la posición de inicial de las fichas \n");
-		System.out.println("      Numerando de izquieda a derecha, eligiendo la posición deseada\n");
-		System.out.println("Presione w si quiere poner una posición deseada o ENTER si quiere la posición por defecto\n");
-		
-		
+		System.out.println("\n      Escoja la posición de inicial de las fichas");
+		System.out.println("\nPresione w si quiere poner una posición deseada o ENTER si quiere la posición por defecto");									
 		String d = entrada.nextLine();
-		System.out.println("\nFichas de cada jugador\n");
-		tablero.dibujaFicha(1);
+		
 		if(d.equals("w")){
+			
+			System.out.println("\nEscriba la ficha con la posición deseada en forma de pareja ordenada");
+			System.out.println("De la forma (<Ficha>, posición), ejemplo: (Ficha 1, 1)");
 			
 			//Se debe poner que el usuario pueda elegir la posición de las fichas
 		}else{
-			System.out.println("\nPosición inicial por defecto\n");
+			System.out.println("\nPosición por defecto\n");
 			tablero.pInicial();	
 		}
-		//System.out.println("\033[H\033[2J");
 		
-		//System.out.close();
-		//tablero.dibujaFicha(1);
+		System.out.println("\n Presione ENTER para continuar");
+		entrada.nextLine();
+		//System.out.println("\033[H\033[2J");					
+		System.out.println("Fichas de cada jugador\n");
+		tablero.dibujaFicha(1);
+		
+		
+		
 		
     }
     
