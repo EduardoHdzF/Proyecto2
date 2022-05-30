@@ -93,7 +93,24 @@ public class Juego{
 		 	
 		 	maquina = true;
 		 	
-		}
+		}else{
+		
+			System.out.println("\n     Ingrese el nombre del Jugador 2");
+		 	n = entrada.nextLine();
+		 	q = new Jugador();
+		 	
+		 	if(n != ""){
+				q.setNombre(n);
+			}else{
+			
+				q.setNombre("Jugador 2");
+			}
+		 	
+		 	jugadores.push(q);
+		 	
+		 }
+		
+		
 		
 		
 	}
@@ -124,7 +141,7 @@ public class Juego{
 		//System.out.println("    Numerando de izquieda a derecha, eligiendo la posición deseada\n");
 		
 		
-		tablero.dibujaTablero(0);				
+		tablero.dibujaTablero();				
 		tablero.dibujaFicha(0);
 		
 		System.out.println("\n      Escoja la posición de inicial de las fichas");
@@ -132,10 +149,39 @@ public class Juego{
 		String d = entrada.nextLine();
 		
 		if(d.equals("w")){
+			for(int a = 0; a < 4; a++){
+			while(true){
 			
 			System.out.println("\nEscriba la ficha con la posición deseada en forma de pareja ordenada");
-			System.out.println("De la forma (<Ficha>, posición), ejemplo: (Ficha 1, 1)");
+			System.out.println("De la forma <Ficha>, posición, ejemplo: Ficha 1, 1");
 			
+				tablero.dibujaFicha(0);
+				
+				String en = entrada.nextLine();
+				
+				String[] aux = en.split(",");
+							
+				
+				for(int i = 0; i < aux.length; i++){
+					System.out.println(aux[i]);
+				}
+				
+				
+					try{
+						if(aux[1].contains("5")) {
+							System.out.println("papi");
+							throw new IllegalArgumentException();								
+						}
+						tablero.mueveFicha(aux[0], aux[1]);
+						break;
+						
+					}catch(Exception e){
+						System.out.println(e);
+						System.out.println("Ingrese una posición válida");	
+					}
+				}
+			}
+			//tablero.mueveFicha(
 			//Se debe poner que el usuario pueda elegir la posición de las fichas
 		}else{
 			System.out.println("\nPosición por defecto\n");
@@ -149,7 +195,17 @@ public class Juego{
 		tablero.dibujaFicha(1);
 		
 		
+		j = jugadores.pop();
+		System.out.println(j.getNombre());
+		j.setFicha("\033[91m");
+		jugadores.push(j);
 		
+		if(!maquina){
+			j = jugadores.pop();
+			System.out.println(j.getNombre());
+			j.setFicha("\033[96m");
+			jugadores.push(j);
+		}
 		
     }
     

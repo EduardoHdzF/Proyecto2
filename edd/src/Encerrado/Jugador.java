@@ -11,7 +11,7 @@ import edd.src.Estructuras.*;
 public class Jugador{
 	
 	private String nombre;	
-	
+	private String ficha;
 	
 	public Jugador(){
 		nombre = "Jugador";
@@ -27,5 +27,10 @@ public class Jugador{
 	public String toString(){		
 		return this.nombre;		
 	}
-	
+	public String getFicha(){
+		return this.ficha;	
+	}
+	public void setFicha(String f){
+		ficha = f;	
+	}
 }	
