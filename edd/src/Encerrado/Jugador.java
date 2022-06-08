@@ -12,6 +12,7 @@ public class Jugador{
 	
 	private String nombre;	
 	private String ficha;
+	private String color;
 	
 	public Jugador(){
 		nombre = "Jugador";
@@ -32,5 +33,11 @@ public class Jugador{
 	}
 	public void setFicha(String f){
 		ficha = f;	
+	}
+	public String getColor(){
+		return this.color;	
+	}
+	public void setColor(String c){
+		this.color = c;	
 	}
 }	

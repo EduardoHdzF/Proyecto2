@@ -1,6 +1,7 @@
 package edd.src.Encerrado;
 
 import edd.src.Estructuras.*;
+import java.util.Random;
 
 /**
  * Clase Tablero, nos representa el tablero y las fichas.
@@ -18,6 +19,7 @@ public class Tablero{
 	private boolean e5;
 	private String[] color = new String[5];
 	private String[][] nodos = new String[5][3];
+	private Pila<String> mov = new Pila<String>();
 	//private String[] nodos = new String[5];
 	
 	String f1 = "⣴⣿⣿⣿";	
@@ -107,25 +109,39 @@ public class Tablero{
 	 */
 	public void pInicial(){
 		
-		f2 = "\033[96m" + f2 + "\033[39m";
-		ff2 = "\033[96m" + ff2 + "\033[39m";
+		Random random = new Random();
+		int valor = random.nextInt((10 - 1) + 1) + 1;
+		
+		String color1 = new String();//"\033[91m";
+		String color2 = new String(); //"\033[96m";
+		
+		if(valor <= 5){
+			color1 = "\033[91m";
+			color2 = "\033[96m";
+		}else{			
+			color1 = "\033[96m";
+			color2 = "\033[91m";		
+		}
+		
+		f2 = color2 + f2 + "\033[39m";
+		ff2 = color2 + ff2 + "\033[39m";
 		e2 = true;
 		
-		f4 = "\033[96m" + f4 + "\033[39m";
-		ff4 = "\033[96m" + ff4 + "\033[39m";
+		f4 = color2 + f4 + "\033[39m";
+		ff4 = color2 + ff4 + "\033[39m";
 		e4 = true;
 		
-		f1 = "\033[91m" + f1 + "\033[39m";
-		ff1 = "\033[91m" + ff1 + "\033[39m";
+		f1 = color1 + f1 + "\033[39m";
+		ff1 = color1 + ff1 + "\033[39m";
 		e1 = true;
 		
-		f3 = "\033[91m" + f3 + "\033[39m";
-		ff3 = "\033[91m" + ff3 + "\033[39m";
+		f3 = color1 + f3 + "\033[39m";
+		ff3 = color1 + ff3 + "\033[39m";
 		e3 = true;
 		
-		f5 = "\033[92m" + f5 + "\033[39m";
-		ff5 = "\033[91m" + ff5 + "\033[39m";
-		fff5 = "\033[96m" + fff5 + "\033[39m";
+		f5 = "\033[39m" + f5 + "\033[39m";
+		ff5 = "\033[39m" + ff5 + "\033[39m";
+		fff5 = "\033[39m" + fff5 + "\033[39m";
 		//esquinas
 		for(int i = 0; i < 5; i++){
 		
@@ -158,8 +174,12 @@ public class Tablero{
 					a = false;
 				}
 				if(color[1] != null && color[1].contains("Color 1")){
-					a = true;
+					a = false;
 				}
+				if(color[3] != null && color[3].contains("Color 1")){
+					a = false;
+				}
+				
 				if(a){
 					
 					f1 = "\033[91m" + f1 + "\033[39m";
@@ -168,11 +188,12 @@ public class Tablero{
 					color[0] = "Color 1";
 					
 				}else{				
-					System.out.println("primero fui yo");				
+					//System.out.println("primero fui yo");				
 					throw new IllegalArgumentException();
 				}
 				
 			}
+			
 			if(p.contains("2") && !e2){
 				
 				boolean a = true;
@@ -183,14 +204,18 @@ public class Tablero{
 				if(color[2] != null && color[2].contains("Color 1")){
 					a = false;					
 				}
+				if(color[4] != null && color[4].contains("Color 1")){
+					a = false;
+				}
+				
 				if(a){
-					f2 = "\033[91m" + f1 + "\033[39m";
-					ff2 = "\033[91m" + ff1 + "\033[39m";
+					f2 = "\033[91m" + f2 + "\033[39m";
+					ff2 = "\033[91m" + ff2 + "\033[39m";
 					e2 = true;			
 					color[1] = "Color 1";	
 				}else{
 				
-					System.out.println("primero fui yo");
+					//System.out.println("primero fui yo");
 					throw new IllegalArgumentException();
 				}
 			
@@ -205,13 +230,14 @@ public class Tablero{
 				if(color[3] != null &&	color[3].contains("Color 1")){
 					a = false;				
 				}
+				
 				if(a){
 					f3 = "\033[91m" + f3 + "\033[39m";
 					ff3 = "\033[91m" + ff3 + "\033[39m";
 					e3 = true;
 					color[2] = "Color 1";
 				}else{					
-					System.out.println("primero fui yo");
+					//System.out.println("primero fui yo");
 					throw new IllegalArgumentException();
 				}
 			
@@ -226,13 +252,17 @@ public class Tablero{
 				if(color[2] != null && color[2].contains("Color 1")){
 					a = false;
 				}
+				if(color[0] != null && color[0].contains("Color 1")){
+					a = false;
+				}
+				
 				if(a){				
 					f4 = "\033[91m" + f4 + "\033[39m";
 					ff4 = "\033[91m" + ff4 + "\033[39m";
 					e4 = true;
 					color[3] = "Color 1";
 				}else{
-					System.out.println("primero fui yO");
+					//System.out.println("primero fui yO");
 					throw new IllegalArgumentException();
 				}
 				
@@ -244,7 +274,7 @@ public class Tablero{
 				
 				for(int i = 0; i < color.length-1; i++){
 				
-					if(color[i].contains("Color 1")){
+					if(color[i] != null && color[i].contains("Color 1")){
 						a = false;
 						break;											
 					}	
@@ -260,7 +290,7 @@ public class Tablero{
 					color[4] = "Color 1";
 					
 				}else{
-					System.out.println("primero fui yo");
+					//System.out.println("primero fui yo");
 					throw new IllegalArgumentException();
 				}
 			}
@@ -278,7 +308,10 @@ public class Tablero{
 					a = false;
 				}
 				if(color[1] != null && color[1].contains("Color 2")){
-					a = true;
+					a = false;
+				}
+				if(color[3] != null && color[3].contains("Color 2")){
+					a = false;
 				}
 				if(a){
 				
@@ -287,12 +320,13 @@ public class Tablero{
 					e1 = true;
 					color[0] = "Color 2";
 				}else{
-					System.out.println("primero fui yo");
+					//System.out.println("primero fui yo");
 					throw new IllegalArgumentException();
 				}
 			}
 			
 			if(p.contains("2") && !e2){
+			System.out.println("salsa");
 				boolean a = true;
 				
 				if(color[0] != null && color[0].contains("Color 2")){
@@ -303,12 +337,12 @@ public class Tablero{
 				}
 				if(a){
 					
-					f2 = "\033[96m" + f1 + "\033[39m";
-					ff2 = "\033[96m" + ff1 + "\033[39m";
+					f2 = "\033[96m" + f2 + "\033[39m";
+					ff2 = "\033[96m" + ff2 + "\033[39m";
 					e2 = true;			
 					color[1] = "Color 2";	
 				}else{				
-					System.out.println("primero fui yo");
+					//System.out.println("primero fui yo");
 					throw new IllegalArgumentException();
 				}				
 			}
@@ -329,7 +363,7 @@ public class Tablero{
 					e3 = true;
 					color[2] = "Color 2";
 				}else{
-					System.out.println("primero fui yo");	
+					//System.out.println("primero fui yo");	
 					throw new IllegalArgumentException();			
 				}
 					
@@ -339,10 +373,13 @@ public class Tablero{
 				
 				boolean a = true;
 				
-				if(color[4] != null && color[4].contains("Color 1")){
+				if(color[4] != null && color[4].contains("Color 2")){
 					a = false;
 				}
-				if(color[2] != null && color[2].contains("Color 1")){
+				if(color[2] != null && color[2].contains("Color 2")){
+					a = false;
+				}
+				if(color[0] != null && color[0].contains("Color 2")){
 					a = false;
 				}
 				
@@ -353,7 +390,7 @@ public class Tablero{
 					e4 = true;
 					color[3] = "Color 2";
 				}else{
-					System.out.println("Primero fui yo");
+					//System.out.println("Primero fui yo");
 					throw new IllegalArgumentException();
 				}
 			}	
@@ -363,7 +400,7 @@ public class Tablero{
 				
 				for(int i = 0; i < color.length-1; i++){
 				
-					if(color[i].contains("Color 2")){
+					if(color[i] != null && color[i].contains("Color 2")){
 						a = false;
 						break;											
 					}	
@@ -376,7 +413,7 @@ public class Tablero{
 					e5 = true;
 					color[4] = "Color 2";			
 				}else{
-					System.out.println("primero fui yo");
+					//System.out.println("primero fui yo");
 					throw new IllegalArgumentException();
 				}
 			}	
