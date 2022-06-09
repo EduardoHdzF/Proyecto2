@@ -444,50 +444,53 @@ public class Juego{
 		prueba.add(7);
 		prueba.add(9);
 		System.out.println(m.mini);
-		while(true){
-			
-			try{
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			tablero.dibujaTablero();
-			System.out.println("\nIngrese la ficha que desee mover, escriba 1 si su ficha está más a su izquierda o 2 si está más a su derecha");
-			System.out.println("*Ingrese el número 199 si desea salir*");
-			String en = entrada.nextLine();
-			if(en.contains("199")){
-					despedida();
-			}
-			
-			int fich = Integer.parseInt(en);	
-			if(fich < 1 || fich > 2){
-				throw new IllegalArgumentException();
-			}
-			System.out.println("\nIngrese la posición que desea jugar(recuerde que solo puede elegir un número entre el 1 y 5)");				
-			
-			System.out.println("*Ingrese el número 199 si desea salir*");
-										
-				en = entrada.nextLine();
+		
+		while(tablero.puedoMoverme(ahora)){
+		
+			while(true){
 				
+				try{
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				tablero.dibujaTablero();
+				System.out.println("\nIngrese la ficha que desee mover, escriba 1 si su ficha está más a su izquierda o 2 si está más a su derecha");
+				System.out.println("*Ingrese el número 199 si desea salir*");
+				String en = entrada.nextLine();
 				if(en.contains("199")){
-					despedida();
+						despedida();
 				}
-				int ps = Integer.parseInt(en);
-				if(ps < 1 || ps > 5){
+				
+				int fich = Integer.parseInt(en);	
+				if(fich < 1 || fich > 2){
 					throw new IllegalArgumentException();
 				}
+				System.out.println("\nIngrese la posición que desea jugar(recuerde que solo puede elegir un número entre el 1 y 5)");				
 				
-				System.out.println(ahora);
-				System.out.println();
-				
-				tablero.mueve(ahora, ps, fich);
-				
-				break;
-			}catch(Exception e){
-				
-				System.out.println("\n\033[43mIngrese una posición válida\033[49m");
+				System.out.println("*Ingrese el número 199 si desea salir*");
+											
+					en = entrada.nextLine();
+					
+					if(en.contains("199")){
+						despedida();
+					}
+					int ps = Integer.parseInt(en);
+					if(ps < 1 || ps > 5){
+						throw new IllegalArgumentException();
+					}
+					
+					System.out.println(ahora);
+					System.out.println();
+					
+					tablero.mueve(ahora, ps, fich);
+					
+					break;
+				}catch(Exception e){
+					
+					System.out.println("\n\033[43mIngrese una posición válida\033[49m");
+					
+				}
 				
 			}
-			
 		}
-		
 		String[] arr = m.colores;
 		for(int i = 0; i< arr.length; i++){
 		

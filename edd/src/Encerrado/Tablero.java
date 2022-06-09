@@ -462,6 +462,7 @@ public class Tablero{
 			System.out.println("pendiente");
 			return;
 		}
+		
 		if(p < 1 || p > 5){
 			
 			throw new IllegalArgumentException();
@@ -479,7 +480,7 @@ public class Tablero{
 		//System.out.println(ficha  + "   " + tinte + color[4]);
 		
 		if(p == 1 && !e1){
-				
+				System.out.println("C1 ");
 				boolean a = true;			
 				/*
 				if(color[4] != null && color[4].contains(tinte)){				
@@ -493,8 +494,8 @@ public class Tablero{
 				}
 				*/
 				if(a){
-					
-					f1 = ficha + r1 + "\033[39m";
+					eliminaPrimeraA(f, tinte);
+					f1 = ficha + r1.toString() + "\033[39m";
 					ff1 = ficha + rr1 + "\033[39m";
 					e1 = true;
 					color[0] = tinte;
@@ -511,7 +512,7 @@ public class Tablero{
 		}
 			
 			if(p == 2 && !e2){
-				
+				System.out.println("C2 ");
 				boolean a = true;
 				/*
 				if(color[0] != null && color[0].contains(tinte)){
@@ -525,6 +526,7 @@ public class Tablero{
 				}
 				*/
 				if(a){
+				eliminaPrimeraA(f, tinte);
 					f2 = ficha + r2 + "\033[39m";
 					ff2 = ficha + rr2 + "\033[39m";
 					e2 = true;			
@@ -542,7 +544,7 @@ public class Tablero{
 			}
 		
 			if(p == 3 && !e3){
-			
+			System.out.println("C3 ");
 				boolean a = true;
 				/*
 				if(color[1] != null && color[1].contains(tinte) ){
@@ -553,6 +555,7 @@ public class Tablero{
 				}
 				*/
 				if(a){
+				eliminaPrimeraA(f, tinte);
 					f3 = ficha + r3 + "\033[39m";
 					ff3 = ficha + rr3 + "\033[39m";
 					e3 = true;
@@ -570,7 +573,7 @@ public class Tablero{
 		
 		
 			if(p == 4 && !e4){
-			
+			System.out.println("C4 ");
 				boolean a = true;
 				/*
 				if(color[4] != null && color[4].contains(tinte)){
@@ -583,7 +586,8 @@ public class Tablero{
 					a = false;
 				}
 				*/
-				if(a){				
+				if(a){			
+				eliminaPrimeraA(f, tinte);	
 					f4 = ficha + r4 + "\033[39m";
 					ff4 = ficha + rr4 + "\033[39m";
 					e4 = true;
@@ -601,7 +605,7 @@ public class Tablero{
 		
 			
 			if(p == 5 && !e5){
-			
+			System.out.println("C5 ");
 				boolean a = true;	
 				/*
 				for(int i = 0; i < color.length-1; i++){
@@ -615,7 +619,7 @@ public class Tablero{
 				}						
 				*/		
 				if(a){
-					System.out.println("----------------------------------------------------primero fui yo");
+					eliminaPrimeraA(f, tinte);
 					f5 = ficha + r5 + "\033[39m";
 					ff5 = ficha + rr5 + "\033[39m";
 					fff5 = ficha + rrr5 + "\033[39m";
@@ -632,8 +636,20 @@ public class Tablero{
 			
 			}
 			
-			
+			System.out.println("----------------------------------------------------primero fui yo");
 			//Borra la primera aparición de la ficha del color del jugador( a la izquierda)
+		
+		for(int i = 0; i < color.length; i++){
+				//System.out.println("- " + i + " - " + color[i] );
+				System.out.println("Color "+ i + " " + color[i]);
+				
+			}
+			
+		dibujaTablero();
+	}
+	
+	private void eliminaPrimeraA(int f, String tinte){	
+		
 		if(f == 1){
 			for(int i = 0; i < color.length-1; i++){
 				System.out.println("- " + i + " - " + color[i] );
@@ -676,15 +692,153 @@ public class Tablero{
 				
 			}
 		
-		}
+		}	
+		
+		
+	}
+	
+	/**
+	 * Nos dice si alguna ficha del jugador tiene la posibilidad de moverse
+	 */
+	public boolean puedoMoverme(Jugador j){
+	
+		String tinte = j.getColor();
+
+		boolean a = false;
+
 		for(int i = 0; i < color.length; i++){
-				//System.out.println("- " + i + " - " + color[i] );
-				System.out.println("Color "+ i + " " + color[i]);
+			if(color[i] != null)
+			System.out.println(!color[i].equals(tinte) + " caki " + i );
+			
+			if(color[i] != null && !color[i].equals(tinte)){
 				
+				continue;
+			
 			}
 			
-		dibujaTablero();
-	}
+			if(i == 0 && e1){
+								
+				//boolean a = true;
+				
+				if(color[4] == null){				
+					a = true;
+				}
+				if(color[1] == null){
+					a = true;
+				}
+								
+				//return a;
+			
+			
+			}else if(i == 1 && e2){
+			//System.out.println("salsa");
+				//boolean a = true;
+				
+				if(color[0] == null){
+					a = true;
+				}
+				if(color[2] == null){
+					a = true;					
+				}
+				if(color[4] == null){				
+					a = true;
+				}
+				/*
+				if(a){
+					
+					f2 = "\033[96m" + f2 + "\033[39m";
+					ff2 = "\033[96m" + ff2 + "\033[39m";
+					e2 = true;			
+					color[1] = "Color 2";	
+				}else{				
+					//System.out.println("primero fui yo");
+					throw new IllegalArgumentException();
+				}*/
+				//return a;				
+			
+			
+			}else if(i == 2 && e3){
+	
+				//boolean a = true;
+				
+				if(color[1] == null){
+					a = true;				
+				}
+				if(color[3] == null){
+					a = true;				
+				}
+				if(color[4] == null){				
+					a = true;
+				}
+				/*
+				if(a){
+					f3 = "\033[96m" + f3 + "\033[39m";
+					ff3 = "\033[96m" + ff3 + "\033[39m";
+					e3 = true;
+					color[2] = "Color 2";
+				}else{
+					//System.out.println("primero fui yo");	
+					throw new IllegalArgumentException();			
+				}
+				*/
+				
+			
+			}else if(i == 3 && e4){
+				
+				//boolean a = true;
+				
+				if(color[4] == null){
+					a = true;
+				}
+				if(color[2] == null){
+					a = true;
+				}
+				/*
+				if(a){	
+					
+					f4 = "\033[96m" + f4 + "\033[39m";
+					ff4 = "\033[96m" + ff4 + "\033[39m";
+					e4 = true;
+					color[3] = "Color 2";
+				}else{
+					//System.out.println("Primero fui yo");
+					throw new IllegalArgumentException();
+				}*/
+				
+			}else if(i == 4 && e5){
+				
+				//boolean a = true;	
+				
+				for(int o = 0; o < color.length-1; o++){
+				
+					if(color[o] == null){
+						return true;															
+					}	
+				
+				}
+				
+				//return false;	
+				/*	
+				if(a){
+					f5 = "\033[96m" + f5 + "\033[39m";
+					ff5 = "\033[96m" + ff5 + "\033[39m";
+					fff5 = "\033[96m" + fff5 + "\033[39m";
+					e5 = true;
+					color[4] = "Color 2";			
+				}else{
+					//System.out.println("primero fui yo");
+					throw new IllegalArgumentException();
+				}
+				*/
+			}
+			
+			
+				
+		
+		}	
+		System.out.println(" aaa " + a);			
+		return a;
+	}	
 	
 	/**
 	 * Nos elimina el color de vértice que le den por argumento
