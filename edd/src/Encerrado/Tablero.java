@@ -477,7 +477,7 @@ public class Tablero{
 				System.out.println("Color "+ i + " " + color[i]);
 				
 		}
-		//System.out.println(ficha  + "   " + tinte + color[4]);
+		//System.out.println(ficha  + "   " + tinte + color[4]);  verde
 		
 		if(p == 1 && !e1){
 				System.out.println("C1 ");
