@@ -11,12 +11,21 @@ import edd.src.Estructuras.*;
 public class Maquina{
 
 	public ArbolBinarioCompleto<Integer> mini;
+	public Tablero tablero;
+	public String[] colores;
 	
 	public Maquina(){
 		
 		mini = new ArbolBinarioCompleto<Integer>();	
-			
+		tablero = new Tablero();
 	}
+	public Maquina(Tablero t){
+	
+		mini = new ArbolBinarioCompleto<Integer>();	
+		tablero = t;
+		colores = t.getColores();
+	
+	}	
 	
 	
 }

@@ -38,6 +38,23 @@ public class Tablero{
 	String ff5 = "⠠⣿⣿⣿⣷⠄";
 	String fff5 = "⠛⠿⠟⠛";
 	
+	
+	String r1 = "⣴⣿⣿⣿";	
+	String rr1 = "⠻⣿⣿⠟";
+	
+	String r2 = "⣴⣿⣿⣦";
+	String rr2 = "⠻⣿⣿⢿";
+
+	String r3 = "⣠⣾⣿⣷⡄";
+	String rr3 = "⣹⢿⣿⡿⠃";
+					
+	String r4 = "⢱⣿⣿⣿⡄";
+	String rr4 = "⠘⢿⣿⡿⠃";
+	
+	String r5 = "⣀⣠⣀";
+	String rr5 = "⠠⣿⣿⣿⣷⠄";
+	String rrr5 = "⠛⠿⠟⠛";
+	
 	public Tablero(){
 		
 		dibujo = new String();
@@ -49,6 +66,9 @@ public class Tablero{
 		e5 = false;
 	}
 	
+	public String[] getColores(){
+		return this.color;		
+	}
 	/**
 	 * Nos dibuja el tablero en forma de String
 	 */
@@ -114,36 +134,47 @@ public class Tablero{
 		
 		String color1 = new String();//"\033[91m";
 		String color2 = new String(); //"\033[96m";
+		String a = new String();
+		String b = new String();
 		
 		if(valor <= 5){
 			color1 = "\033[91m";
-			color2 = "\033[96m";
+			color2 = "\033[96m";	
+			a = "Color 1";	
+			b = "Color 2";
 		}else{			
 			color1 = "\033[96m";
 			color2 = "\033[91m";		
+			a = "Color 2";	
+			b = "Color 1";
 		}
 		
-		f2 = color2 + f2 + "\033[39m";
-		ff2 = color2 + ff2 + "\033[39m";
+		f2 = color2 + r2 + "\033[39m";
+		ff2 = color2 + rr2 + "\033[39m";
+		color[1] = b;
 		e2 = true;
 		
-		f4 = color2 + f4 + "\033[39m";
-		ff4 = color2 + ff4 + "\033[39m";
+		f4 = color2 + r4 + "\033[39m";
+		ff4 = color2 + rr4 + "\033[39m";
+		color[3] = b;
 		e4 = true;
 		
-		f1 = color1 + f1 + "\033[39m";
-		ff1 = color1 + ff1 + "\033[39m";
+		f1 = color1 + r1 + "\033[39m";
+		ff1 = color1 + rr1 + "\033[39m";
+		color[0] = a;
 		e1 = true;
 		
-		f3 = color1 + f3 + "\033[39m";
-		ff3 = color1 + ff3 + "\033[39m";
+		f3 = color1 + r3 + "\033[39m";
+		ff3 = color1 + rr3 + "\033[39m";
+		color[2] = a;
 		e3 = true;
 		
-		f5 = "\033[39m" + f5 + "\033[39m";
-		ff5 = "\033[39m" + ff5 + "\033[39m";
-		fff5 = "\033[39m" + fff5 + "\033[39m";
+		f5 = "\033[39m" + r5 + "\033[39m";
+		ff5 = "\033[39m" + rr5 + "\033[39m";
+		fff5 = "\033[39m" + rrr5 + "\033[39m";
+		color[4] = null;
 		//esquinas
-		for(int i = 0; i < 5; i++){
+		/*for(int i = 0; i < 5; i++){
 		
 			for(int o = 0; o < 3; o++){
 			
@@ -151,7 +182,7 @@ public class Tablero{
 					
 			}
 		
-		}		
+		}*/		
 		
 		dibujaTablero();
 		
@@ -418,8 +449,291 @@ public class Tablero{
 				}
 			}	
 		}
-		//Está a medias, necesitopulirlo
+		
 		dibujaTablero();
+	}
+	
+	/**
+	 * Nos mueve el tablero de acuerdo al tiro del jugador correspondiente
+	 */
+	public void mueve(Jugador j, int p, int f){
+	
+		if(j == null){
+			System.out.println("pendiente");
+			return;
+		}
+		if(p < 1 || p > 5){
+			
+			throw new IllegalArgumentException();
+		
+		}		
+		
+		String tinte = j.getColor();
+		String ficha = j.getFicha();
+		
+		for(int i = 0; i < color.length; i++){
+				//System.out.println("- " + i + " - " + color[i] );
+				System.out.println("Color "+ i + " " + color[i]);
+				
+		}
+		//System.out.println(ficha  + "   " + tinte + color[4]);
+		
+		if(p == 1 && !e1){
+				
+				boolean a = true;			
+				/*
+				if(color[4] != null && color[4].contains(tinte)){				
+					a = false;
+				}
+				if(color[1] != null && color[1].contains(tinte)){
+					a = false;
+				}
+				if(color[3] != null && color[3].contains(tinte)){
+					a = false;
+				}
+				*/
+				if(a){
+					
+					f1 = ficha + r1 + "\033[39m";
+					ff1 = ficha + rr1 + "\033[39m";
+					e1 = true;
+					color[0] = tinte;
+					
+				}else{				
+					//System.out.println("primero fui yo");				
+					throw new IllegalArgumentException();
+				}
+				
+		}else if(p == 1 && e1){
+			
+			throw new IllegalArgumentException();
+			
+		}
+			
+			if(p == 2 && !e2){
+				
+				boolean a = true;
+				/*
+				if(color[0] != null && color[0].contains(tinte)){
+					a = false;
+				}
+				if(color[2] != null && color[2].contains(tinte)){
+					a = false;					
+				}
+				if(color[4] != null && color[4].contains(tinte)){
+					a = false;
+				}
+				*/
+				if(a){
+					f2 = ficha + r2 + "\033[39m";
+					ff2 = ficha + rr2 + "\033[39m";
+					e2 = true;			
+					color[1] = tinte;	
+				}else{
+				
+					//System.out.println("primero fui yo");
+					throw new IllegalArgumentException();
+				}
+			
+			}else if(p == 2 && e2){
+			
+				throw new IllegalArgumentException();
+				
+			}
+		
+			if(p == 3 && !e3){
+			
+				boolean a = true;
+				/*
+				if(color[1] != null && color[1].contains(tinte) ){
+					a = false;				
+				}
+				if(color[3] != null &&	color[3].contains(tinte)){
+					a = false;				
+				}
+				*/
+				if(a){
+					f3 = ficha + r3 + "\033[39m";
+					ff3 = ficha + rr3 + "\033[39m";
+					e3 = true;
+					color[2] = tinte;
+				}else{					
+					//System.out.println("primero fui yo");
+					throw new IllegalArgumentException();
+				}
+				
+			}else if(p == 3 && e3){
+			
+				throw new IllegalArgumentException();
+			
+			}
+		
+		
+			if(p == 4 && !e4){
+			
+				boolean a = true;
+				/*
+				if(color[4] != null && color[4].contains(tinte)){
+					a = false;
+				}
+				if(color[2] != null && color[2].contains(tinte)){
+					a = false;
+				}
+				if(color[0] != null && color[0].contains(tinte)){
+					a = false;
+				}
+				*/
+				if(a){				
+					f4 = ficha + r4 + "\033[39m";
+					ff4 = ficha + rr4 + "\033[39m";
+					e4 = true;
+					color[3] = tinte;
+				}else{
+					//System.out.println("primero fui yO");
+					throw new IllegalArgumentException();
+				}
+				
+			}else if(p == 4 && e4){
+			
+				throw new IllegalArgumentException();
+				
+			}
+		
+			
+			if(p == 5 && !e5){
+			
+				boolean a = true;	
+				/*
+				for(int i = 0; i < color.length-1; i++){
+				System.out.println("- " + i + " - " + color[i] );
+					if(color[i] != null && color[i].contains(tinte)){
+						System.out.println("--");
+						a = false;
+						break;											
+					}	
+				
+				}						
+				*/		
+				if(a){
+					System.out.println("----------------------------------------------------primero fui yo");
+					f5 = ficha + r5 + "\033[39m";
+					ff5 = ficha + rr5 + "\033[39m";
+					fff5 = ficha + rrr5 + "\033[39m";
+					e5 = true;
+					color[4] = tinte;
+					
+				}else{
+					//System.out.println("primero fui yo");
+					throw new IllegalArgumentException();
+				}
+			}else if(p == 5 && e5){
+			
+				throw new IllegalArgumentException();
+			
+			}
+			
+			
+			//Borra la primera aparición de la ficha del color del jugador( a la izquierda)
+		if(f == 1){
+			for(int i = 0; i < color.length-1; i++){
+				System.out.println("- " + i + " - " + color[i] );
+					if(color[i] != null && color[i].contains(tinte)){
+						//System.out.println("--");
+						//a = false;
+						borra(i+1);
+						
+						break;											
+					}else if(i == 1 && color[i] != null){
+						
+						if(color[4] != null && color[4].contains(tinte)){
+							
+							borra(5);
+							
+						}
+					}	
+				
+			}
+		}
+		//Borra la segunda aparición de la ficha del color del jugador (a la derecha)
+		if(f == 2){
+			
+			for(int i = 0; i < color.length-1; i++){
+				System.out.println("--- " + (3-i) + " --- " + color[3-i] );
+					if(color[3-i] != null && color[3-i].contains(tinte)){
+						//System.out.println("--");
+						//a = false;
+						borra((3-i)+ 1);
+						
+						break;											
+					}else if(3-i == 2 && color[3-i] != null){
+						
+						if(color[4] != null && color[4].contains(tinte)){
+							
+							borra(5);
+							
+						}
+					}	
+				
+			}
+		
+		}
+		for(int i = 0; i < color.length; i++){
+				//System.out.println("- " + i + " - " + color[i] );
+				System.out.println("Color "+ i + " " + color[i]);
+				
+			}
+			
+		dibujaTablero();
+	}
+	
+	/**
+	 * Nos elimina el color de vértice que le den por argumento
+	 * Dando la sensación de que se movió la ficha
+	 */
+	private void borra(int i){
+		
+		if(i == 1){
+		
+			f1 = r1;
+			ff1 =  rr1;
+			e1 =  false;			
+			color[0] = null;
+		
+		}
+		if(i == 2){
+		
+			f2 = r2;
+			ff2 = rr2;
+			e2 =  false;			
+			color[1] = null;
+		
+		}
+		if(i == 3){
+		
+			f3 = r3;
+			ff3 = rr3;
+			e3 =  false;			
+			color[2] = null;
+		
+		}
+		if(i == 4){
+		
+			f4 = r4;
+			ff4 = rr4;
+			e4 =  false;			
+			color[3] = null;
+		
+		}
+		if(i == 5){
+		
+			f5 = r5;
+			ff5 = rr5;
+			fff5 = rrr5;
+			e5 = false;
+			color[4] = null;
+		
+		}
+	
 	}
 	
 }
