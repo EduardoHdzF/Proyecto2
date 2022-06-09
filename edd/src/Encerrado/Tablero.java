@@ -648,6 +648,11 @@ public class Tablero{
 		dibujaTablero();
 	}
 	
+	
+	/**
+	 * Nos elimina la parimera aparición de la ficha del color deseado.
+ 	 * La primera aparición se cuenta de izquierda a derecha.
+	 */
 	private void eliminaPrimeraA(int f, String tinte){	
 		
 		if(f == 1){
@@ -697,6 +702,56 @@ public class Tablero{
 		
 	}
 	
+	private boolean puedoMoverme(int i){
+
+		if(f == 1){
+			for(int i = 0; i < color.length-1; i++){
+				//System.out.println("- " + i + " - " + color[i] );
+					if(color[i] != null && color[i].contains(tinte)){
+						//System.out.println("--");
+						//a = false;
+						//borra(i+1);
+												
+
+						break;											
+					}else if(i == 1 && color[i] != null){
+						
+						if(color[4] != null && color[4].contains(tinte)){
+							
+							borra(5);
+							
+						}
+					}	
+				
+			}
+		}
+		//Borra la segunda aparición de la ficha del color del jugador (a la derecha)
+		if(f == 2){
+			
+			for(int i = 0; i < color.length-1; i++){
+				System.out.println("--- " + (3-i) + " --- " + color[3-i] );
+					if(color[3-i] != null && color[3-i].contains(tinte)){
+						//System.out.println("--");
+						//a = false;
+						borra((3-i)+ 1);
+						
+						break;											
+					}else if(3-i == 2 && color[3-i] != null){
+						
+						if(color[4] != null && color[4].contains(tinte)){
+							
+							borra(5);
+							
+						}
+					}	
+				
+			}
+		
+		}	
+
+	}
+
+
 	/**
 	 * Nos dice si alguna ficha del jugador tiene la posibilidad de moverse
 	 */
