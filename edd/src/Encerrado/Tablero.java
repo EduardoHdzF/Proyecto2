@@ -472,6 +472,8 @@ public class Tablero{
 		String tinte = j.getColor();
 		String ficha = j.getFicha();
 		
+		if(!puedoMoverme(f, tinte)) throw new IllegalArgumentException();		
+		
 		for(int i = 0; i < color.length; i++){
 				//System.out.println("- " + i + " - " + color[i] );
 				System.out.println("Color "+ i + " " + color[i]);
@@ -702,10 +704,11 @@ public class Tablero{
 		
 	}
 	
-	private boolean puedoMoverme(int i){
+	private boolean puedoMoverme(int f, String tinte){
 	
 		boolean a = false;
 		if(f == 1){
+		
 			for(int i = 0; i < color.length-1; i++){
 				//System.out.println("- " + i + " - " + color[i] );
 					if(color[i] != null && color[i].contains(tinte)){
@@ -715,21 +718,48 @@ public class Tablero{
 						if(i == 0){
 							
 							if(color[1] == null) a = true;	
+							if(color[4] == null) a = true;
+												
+						}
+						if(i == 1){
 							
+							if(color[0] == null) a = true;
+							if(color[2] == null) a = true;
+							if(color[4] == null) a = true;						
+						}
+						if(i == 2){
+							
+							if(color[1] == null) a = true;
+							if(color[3] == null) a = true;
+							if(color[4] == null) a = true;							
 						
+						}
+						if(i == 3){
 						
-						}					
-
+							if(color[2] == null) a = true;
+							if(color[4] == null) a = true;						
+						}						
 						break;											
-					}
-					/*else if(i == 1 && color[i] != null){
+											
+					}else if(i == 1 && color[i] != null){
 						
 						if(color[4] != null && color[4].contains(tinte)){
 							
-							borra(5);
+							//if(i == 4){
+							for(int b = 0; b < color.length-1; b++){
+				
+								if(color[b] == null){
+									a = true;
+								//break;											
+								}	
+				
+							}	
+								
+							
+							//}
 							
 						}
-					}*/	
+					}	
 				
 			}
 		}
@@ -739,23 +769,53 @@ public class Tablero{
 			for(int i = 0; i < color.length-1; i++){
 				System.out.println("--- " + (3-i) + " --- " + color[3-i] );
 					if(color[3-i] != null && color[3-i].contains(tinte)){
-						//System.out.println("--");
-						//a = false;
-						borra((3-i)+ 1);
 						
-						break;											
+						if(3-i == 0){
+							
+							if(color[1] == null) a = true;	
+							if(color[4] == null) a = true;
+												
+						}
+						if(3-i == 1){
+							
+							if(color[0] == null) a = true;
+							if(color[2] == null) a = true;
+							if(color[4] == null) a = true;						
+						}
+						if(3-i == 2){
+							
+							if(color[1] == null) a = true;
+							if(color[3] == null) a = true;
+							if(color[4] == null) a = true;							
+						
+						}
+						if(3-i == 3){
+						
+							if(color[2] == null) a = true;
+							if(color[4] == null) a = true;						
+						}						
+						break;
+																
 					}else if(3-i == 2 && color[3-i] != null){
 						
 						if(color[4] != null && color[4].contains(tinte)){
 							
-							borra(5);
+							for(int b = 0; b < color.length-1; b++){
+				
+								if(color[b] == null){
+									a = true;
+								//break;											
+								}	
+				
+							}
 							
 						}
 					}	
 				
 			}
 		
-		}	
+		}
+		return a;	
 
 	}
 
