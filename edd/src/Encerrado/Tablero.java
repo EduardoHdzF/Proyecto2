@@ -703,7 +703,8 @@ public class Tablero{
 	}
 	
 	private boolean puedoMoverme(int i){
-
+	
+		boolean a = false;
 		if(f == 1){
 			for(int i = 0; i < color.length-1; i++){
 				//System.out.println("- " + i + " - " + color[i] );
@@ -711,8 +712,10 @@ public class Tablero{
 						//System.out.println("--");
 						//a = false;
 						//borra(i+1);
-						if(i == 0 || i == 3){
-						
+						if(i == 0){
+							
+							if(color[1] == null) a = true;	
+							
 						
 						
 						}					
