@@ -711,17 +711,22 @@ public class Tablero{
 						//System.out.println("--");
 						//a = false;
 						//borra(i+1);
-												
+						if(i == 0 || i == 3){
+						
+						
+						
+						}					
 
 						break;											
-					}else if(i == 1 && color[i] != null){
+					}
+					/*else if(i == 1 && color[i] != null){
 						
 						if(color[4] != null && color[4].contains(tinte)){
 							
 							borra(5);
 							
 						}
-					}	
+					}*/	
 				
 			}
 		}
