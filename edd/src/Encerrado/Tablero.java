@@ -472,31 +472,27 @@ public class Tablero{
 		String tinte = j.getColor();
 		String ficha = j.getFicha();
 		
-		if(!puedoMoverme(f, tinte)) throw new IllegalArgumentException();		
+		//if(!puedoMoverme(f, tinte)) throw new IllegalArgumentException();//Checar si la aparición dada tiene chance de moverse o no.
 		
 		for(int i = 0; i < color.length; i++){
-				//System.out.println("- " + i + " - " + color[i] );
-				System.out.println("Color "+ i + " " + color[i]);
+			
+			System.out.println("Color al inicio "+ i + " " + color[i]);
 				
 		}
-		//System.out.println(ficha  + "   " + tinte + color[4]);  verde
 		
-		if(p == 1 && !e1){
+		int aparicion = aparicionFicha(f, tinte);
+		
+		if(p == 1 && !e1){ //Checar qué pos es la primera o segunda aparición y de esta checar si este número es vecino de esa pos, si no, no jala		
 				System.out.println("C1 ");
-				boolean a = true;			
-				/*
-				if(color[4] != null && color[4].contains(tinte)){				
-					a = false;
-				}
-				if(color[1] != null && color[1].contains(tinte)){
-					a = false;
-				}
-				if(color[3] != null && color[3].contains(tinte)){
-					a = false;
-				}
-				*/
+				
+				boolean a = false;			
+				
+				if(aparicion == 4 || aparicion == 1) a = true;
+				
+								
 				if(a){
-					eliminaPrimeraA(f, tinte);
+					//eliminaPrimeraA(f, tinte);
+					borra(aparicion + 1);
 					f1 = ficha + r1.toString() + "\033[39m";
 					ff1 = ficha + rr1 + "\033[39m";
 					e1 = true;
@@ -515,20 +511,13 @@ public class Tablero{
 			
 			if(p == 2 && !e2){
 				System.out.println("C2 ");
-				boolean a = true;
-				/*
-				if(color[0] != null && color[0].contains(tinte)){
-					a = false;
-				}
-				if(color[2] != null && color[2].contains(tinte)){
-					a = false;					
-				}
-				if(color[4] != null && color[4].contains(tinte)){
-					a = false;
-				}
-				*/
+				boolean a = false;
+				
+				if(aparicion == 4 || aparicion == 0 || aparicion == 2) a = true;
+				
 				if(a){
-				eliminaPrimeraA(f, tinte);
+				//eliminaPrimeraA(f, tinte);
+				borra(aparicion + 1);
 					f2 = ficha + r2 + "\033[39m";
 					ff2 = ficha + rr2 + "\033[39m";
 					e2 = true;			
@@ -547,17 +536,12 @@ public class Tablero{
 		
 			if(p == 3 && !e3){
 			System.out.println("C3 ");
-				boolean a = true;
-				/*
-				if(color[1] != null && color[1].contains(tinte) ){
-					a = false;				
-				}
-				if(color[3] != null &&	color[3].contains(tinte)){
-					a = false;				
-				}
-				*/
+				boolean a = false;
+				if(aparicion == 1 || aparicion == 4 || aparicion == 3) a = true;
+				
 				if(a){
-				eliminaPrimeraA(f, tinte);
+				//eliminaPrimeraA(f, tinte);
+				borra(aparicion + 1);
 					f3 = ficha + r3 + "\033[39m";
 					ff3 = ficha + rr3 + "\033[39m";
 					e3 = true;
@@ -576,20 +560,14 @@ public class Tablero{
 		
 			if(p == 4 && !e4){
 			System.out.println("C4 ");
-				boolean a = true;
-				/*
-				if(color[4] != null && color[4].contains(tinte)){
-					a = false;
-				}
-				if(color[2] != null && color[2].contains(tinte)){
-					a = false;
-				}
-				if(color[0] != null && color[0].contains(tinte)){
-					a = false;
-				}
-				*/
+			
+				boolean a = false;
+				
+				if(aparicion == 2 || aparicion == 4) a = true;
+				
 				if(a){			
-				eliminaPrimeraA(f, tinte);	
+				//eliminaPrimeraA(f, tinte);	
+				borra(aparicion + 1);
 					f4 = ficha + r4 + "\033[39m";
 					ff4 = ficha + rr4 + "\033[39m";
 					e4 = true;
@@ -609,6 +587,8 @@ public class Tablero{
 			if(p == 5 && !e5){
 			System.out.println("C5 ");
 				boolean a = true;	
+				
+				if(aparicion == 4) a = false;
 				/*
 				for(int i = 0; i < color.length-1; i++){
 				System.out.println("- " + i + " - " + color[i] );
@@ -621,7 +601,8 @@ public class Tablero{
 				}						
 				*/		
 				if(a){
-					eliminaPrimeraA(f, tinte);
+					//eliminaPrimeraA(f, tinte);
+					borra(aparicion + 1);
 					f5 = ficha + r5 + "\033[39m";
 					ff5 = ficha + rr5 + "\033[39m";
 					fff5 = ficha + rrr5 + "\033[39m";
@@ -650,12 +631,74 @@ public class Tablero{
 		dibujaTablero();
 	}
 	
+	/**
+	 * Nos devuelve la posición de la aparición deseada del color
+	 * @param a, es 1 si la posición de su ficha está más a la izquierda
+	 * 2 si está más a la derecha, regresa un error si es otro número
+	 *
+	 */
+	private int aparicionFicha(int a, String tinte){
+		
+		if(a < 1 || a > 2){
+			throw new IllegalArgumentException();
+		}
+		
+		if(a == 1){
+		
+			for(int i = 0; i < color.length-1; i++){
+			
+				System.out.println("ApariciónFicha " + i + " - " + color[i] );
+					if(color[i] != null && color[i].contains(tinte)){
+							
+						return i;		
+					
+					}else if(i == 1 && (color[i] != null || color[i] == null) ){
+						
+						if(color[4] != null && color[4].contains(tinte)){
+							
+							return 4;
+							
+						}
+						
+					}					
+											
+			}
+			
+		}
+		
+		if(a == 2){
+			
+			for(int i = 0; i < color.length-1; i++){
+				System.out.println("Caleidoscopio " + (3-i) + " --- " + color[3-i] );
+					if(color[3-i] != null && color[3-i].contains(tinte)){
+						
+						return (3-i);						
+						
+																
+					}else if(3-i == 2 && (color[3-i] != null || color[3-i] == null) ){
+						
+						if(color[4] != null && color[4].contains(tinte)){
+							
+							return 4;
+							
+						}
+					}	
+				
+			}
+		
+		}
+		
+		return -1;
+		
+		
+	
+	}
 	
 	/**
 	 * Nos elimina la parimera aparición de la ficha del color deseado.
  	 * La primera aparición se cuenta de izquierda a derecha.
 	 */
-	private void eliminaPrimeraA(int f, String tinte){	
+	/*private void eliminaPrimeraA(int f, String tinte){	
 		
 		if(f == 1){
 			for(int i = 0; i < color.length-1; i++){
@@ -666,12 +709,12 @@ public class Tablero{
 						borra(i+1);
 						
 						break;											
-					}else if(i == 1 && color[i] != null){
+					}else if(i == 1 && (color[i] != null || color[i] == null)){
 						
 						if(color[4] != null && color[4].contains(tinte)){
 							
 							borra(5);
-							
+							break;
 						}
 					}	
 				
@@ -688,12 +731,12 @@ public class Tablero{
 						borra((3-i)+ 1);
 						
 						break;											
-					}else if(3-i == 2 && color[3-i] != null){
+					}else if(3-i == 2 && (color[3-i] != null || color[3-i] == null)){
 						
 						if(color[4] != null && color[4].contains(tinte)){
 							
 							borra(5);
-							
+							break;
 						}
 					}	
 				
@@ -704,7 +747,7 @@ public class Tablero{
 		
 	}
 	
-	private boolean puedoMoverme(int f, String tinte){
+	/*private boolean puedoMoverme(int f, String tinte){
 	
 		boolean a = false;
 		if(f == 1){
@@ -763,7 +806,7 @@ public class Tablero{
 				
 			}
 		}
-		//Borra la segunda aparición de la ficha del color del jugador (a la derecha)
+		//Nos indica si la segunda aparición de la ficha tiene espacio pa moverse.
 		if(f == 2){
 			
 			for(int i = 0; i < color.length-1; i++){
@@ -817,7 +860,7 @@ public class Tablero{
 		}
 		return a;	
 
-	}
+	}*/
 
 
 	/**

@@ -454,15 +454,19 @@ public class Juego{
 				tablero.dibujaTablero();
 				System.out.println("\nIngrese la ficha que desee mover, escriba 1 si su ficha está más a su izquierda o 2 si está más a su derecha");
 				System.out.println("*Ingrese el número 199 si desea salir*");
+				
 				String en = entrada.nextLine();
+				
 				if(en.contains("199")){
-						despedida();
+					despedida();
 				}
 				
 				int fich = Integer.parseInt(en);	
+				
 				if(fich < 1 || fich > 2){
 					throw new IllegalArgumentException();
 				}
+				
 				System.out.println("\nIngrese la posición que desea jugar(recuerde que solo puede elegir un número entre el 1 y 5)");				
 				
 				System.out.println("*Ingrese el número 199 si desea salir*");
@@ -473,16 +477,18 @@ public class Juego{
 						despedida();
 					}
 					int ps = Integer.parseInt(en);
+					
 					if(ps < 1 || ps > 5){
 						throw new IllegalArgumentException();
 					}
 					
-					System.out.println(ahora);
+					System.out.println(ahora + " es el jugador que ha tirado" );
 					System.out.println();
 					
-					tablero.mueve(ahora, ps, fich);
+					tablero.mueve(ahora, ps, fich);//La función que nos permite mover la ficha en el lugar indicado
 					
 					break;
+					
 				}catch(Exception e){
 					
 					System.out.println("\n\033[43mIngrese una posición válida\033[49m");
@@ -492,11 +498,13 @@ public class Juego{
 			}
 		}
 		String[] arr = m.colores;
-		for(int i = 0; i< arr.length; i++){
 		
-			System.out.println(i + "  " + arr[i]);
+		for(int i = 0; i < arr.length; i++){
+		
+			System.out.println(i + " clima(J) " + arr[i]);
 		
 		}
+		
     }
     
 	public static void main(String[] args){
