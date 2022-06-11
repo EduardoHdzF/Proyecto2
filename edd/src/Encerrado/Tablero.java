@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Tablero{
 
-	private String dibujo;
+	public String dibujo;
 	private String ficha;						
 	protected boolean e1;
 	protected boolean e2;
