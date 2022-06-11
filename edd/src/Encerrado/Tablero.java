@@ -708,7 +708,7 @@ public class Tablero{
 			
 			if(i == 0 && e1){
 								
-				//boolean a = true;
+				
 				
 				if(color[4] == null){				
 					a = true;
@@ -717,12 +717,10 @@ public class Tablero{
 					a = true;
 				}
 								
-				//return a;
 			
 			
 			}else if(i == 1 && e2){
-			//System.out.println("salsa");
-				//boolean a = true;
+		
 				
 				if(color[0] == null){
 					a = true;
@@ -733,23 +731,12 @@ public class Tablero{
 				if(color[4] == null){				
 					a = true;
 				}
-				/*
-				if(a){
-					
-					f2 = "\033[96m" + f2 + "\033[39m";
-					ff2 = "\033[96m" + ff2 + "\033[39m";
-					e2 = true;			
-					color[1] = "Color 2";	
-				}else{				
-					//System.out.println("primero fui yo");
-					throw new IllegalArgumentException();
-				}*/
-				//return a;				
+							
 			
 			
 			}else if(i == 2 && e3){
 	
-				//boolean a = true;
+			
 				
 				if(color[1] == null){
 					a = true;				
@@ -760,22 +747,11 @@ public class Tablero{
 				if(color[4] == null){				
 					a = true;
 				}
-				/*
-				if(a){
-					f3 = "\033[96m" + f3 + "\033[39m";
-					ff3 = "\033[96m" + ff3 + "\033[39m";
-					e3 = true;
-					color[2] = "Color 2";
-				}else{
-					//System.out.println("primero fui yo");	
-					throw new IllegalArgumentException();			
-				}
-				*/
+			
 				
 			
 			}else if(i == 3 && e4){
 				
-				//boolean a = true;
 				
 				if(color[4] == null){
 					a = true;
@@ -783,21 +759,10 @@ public class Tablero{
 				if(color[2] == null){
 					a = true;
 				}
-				/*
-				if(a){	
-					
-					f4 = "\033[96m" + f4 + "\033[39m";
-					ff4 = "\033[96m" + ff4 + "\033[39m";
-					e4 = true;
-					color[3] = "Color 2";
-				}else{
-					//System.out.println("Primero fui yo");
-					throw new IllegalArgumentException();
-				}*/
+			
 				
 			}else if(i == 4 && e5){
 				
-				//boolean a = true;	
 				
 				for(int o = 0; o < color.length-1; o++){
 				
@@ -807,19 +772,6 @@ public class Tablero{
 				
 				}
 				
-				//return false;	
-				/*	
-				if(a){
-					f5 = "\033[96m" + f5 + "\033[39m";
-					ff5 = "\033[96m" + ff5 + "\033[39m";
-					fff5 = "\033[96m" + fff5 + "\033[39m";
-					e5 = true;
-					color[4] = "Color 2";			
-				}else{
-					//System.out.println("primero fui yo");
-					throw new IllegalArgumentException();
-				}
-				*/
 			}
 			
 			
