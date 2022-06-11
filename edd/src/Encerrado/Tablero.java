@@ -783,6 +783,20 @@ public class Tablero{
 	}	
 	
 	/**
+	 * Nos regresa la posición vacía en el tablero
+	 * @return, la posición del tablero que está vacía, es decir que no tiene ficha.
+	 */
+	public int posVacia(){
+	
+		for(int i = 0; i < color.length; i++){	
+				
+			if(color[i] == null) return i+1;	
+			
+		}
+		return -1;
+	}
+	
+	/**
 	 * Nos elimina el color de vértice que le den por argumento
 	 * Dando la sensación de que se movió la ficha
 	 */

@@ -1,7 +1,7 @@
 package edd.src.Encerrado;
 
 import edd.src.Estructuras.*;
-
+import java.util.Random;
 
 /**
  * Clase Maquina, es donde se moverá nuestro árbol
@@ -14,7 +14,8 @@ public class Maquina{
 	public Tablero tablero;
 	public String[] colores;
 	private Jugador jug;
-	
+	private boolean azar;
+	private boolean minimax;
 	
 	public Maquina(){
 			
@@ -36,8 +37,25 @@ public class Maquina{
 	
 	}	
 	
-	public void tira(){
+	public void setAzar(boolean a){
+		
+		this.azar = a;
 	
+	}
+	
+	public void setMinimax(boolean m){
+	
+		this.minimax = m;
+	
+	}
+	
+	public void tira(){
+		
+		if(minimax){
+		
+		}else if(azar){
+			tiroAzar();			
+		}
 	}
 	
 	public void minimax(){
@@ -45,4 +63,39 @@ public class Maquina{
 		
 	
 	}
+	
+	public void tiroAzar(){
+	
+		if(!tablero.puedoMoverme(jug)) throw new IllegalArgumentException();
+		
+		System.out.println("          \033[41mTurno de la Máquina\033[49m");
+		
+		int p = tablero.posVacia();
+		
+		Random random = new Random();
+		
+		int valor = random.nextInt((10 - 1) + 1) + 1;
+		
+		
+		
+		if(valor <= 5){
+			try{				
+				tablero.mueve(jug, p, 1);
+			}catch(IllegalArgumentException iea){
+				tablero.mueve(jug, p, 2);
+			}
+			
+		}else{
+			try{				
+				tablero.mueve(jug, p, 2);
+			}catch(IllegalArgumentException iea){
+				tablero.mueve(jug, p, 1);
+			}			
+		}
+		
+	}
 }
+
+
+
+

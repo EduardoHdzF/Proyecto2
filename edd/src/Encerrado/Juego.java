@@ -16,11 +16,12 @@ public class Juego{
 	private Tablero tablero;
 	private boolean maquina; 
 	private Jugador ahora;//El jugador que está jugando ahora, es null si el turno es de la máquina
+	private Maquina m;
 	
 	/**
 	 * Crea la interfaz de usuario para manejar el juego.
 	 */
-	public Juego(){
+	public Juego(){		
 		jugadores = new Cola<Jugador>();	
 		entrada = new Scanner(System.in);				
 		tablero = new Tablero();
@@ -135,7 +136,7 @@ public class Juego{
 		}else if(r.equals("n") || r.equals("")){
 		 	
 		 	System.out.println("\n>> Jugará con la máquina <<");
-		 	
+		 	m = new Maquina(tablero);
 		 	maquina = true;
 		 	
 		}else{
@@ -186,8 +187,12 @@ public class Juego{
 				try{
 					if(en.equals("1")){
 						System.out.println("Escogió al azar");	
+						m.setAzar(true);
+						m.setMinimax(false);
 					}else if(en.equals("2")){
 						System.out.println("Escogió minimax");
+						m.setAzar(false);
+						m.setMinimax(true);
 					}else{
 					 	throw new IllegalArgumentException();
 					}
@@ -455,13 +460,13 @@ public class Juego{
 		System.out.println("\033[41mBien\033[49m " + ahora);
 
 		//Pruebas------
-		Maquina m = new Maquina(tablero);
-		ArbolBinarioCompleto<Integer> prueba = m.mini;
-		prueba.add(6);
-		prueba.add(3);
-		prueba.add(7);
-		prueba.add(9);
-		System.out.println(m.mini);
+		//Maquina m = new Maquina(tablero);
+		//ArbolBinarioCompleto<Integer> prueba = m.mini;
+		//prueba.add(6);
+		//prueba.add(3);
+		//prueba.add(7);
+		//prueba.add(9);
+		//System.out.println(m.mini);
 		int contador = 0;
 		
 		if(ahora == null){
@@ -530,11 +535,19 @@ public class Juego{
 				}
 				contador++;
 				
-				System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");					
+				//System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");					
 				tablero.dibujaTablero();
 				
 				if(ahora == null){
-					break;
+					try{					
+						m.tira();
+					}catch(IllegalArgumentException iea){
+						System.out.println("Plastica");
+						break;
+					}
+					turno();
+					
+					
 				}else{
 					continue;			
 				}
@@ -543,13 +556,13 @@ public class Juego{
 		
 		}
 		
-		String[] arr = m.colores;
+		//String[] arr = m.colores;
 		
-		for(int i = 0; i < arr.length; i++){
+		//for(int i = 0; i < arr.length; i++){
 		
-			System.out.println(i + " clima(J) " + arr[i]);
+			//System.out.println(i + " clima(J) " + arr[i]);
 		
-		}
+		//}
 		
     }
     
