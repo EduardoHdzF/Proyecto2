@@ -13,19 +13,36 @@ public class Maquina{
 	public ArbolBinarioCompleto<Integer> mini;
 	public Tablero tablero;
 	public String[] colores;
+	private Jugador jug;
+	
 	
 	public Maquina(){
-		
+			
+		jug = new Jugador();
 		mini = new ArbolBinarioCompleto<Integer>();	
 		tablero = new Tablero();
+		jug.setFicha("\033[96m");
+		jug.setColor("Color 2");
 	}
-	public Maquina(Tablero t){
 	
+	public Maquina(Tablero t){
+		
+		jug = new Jugador();
 		mini = new ArbolBinarioCompleto<Integer>();	
 		tablero = t;
 		colores = t.getColores();
+		jug.setFicha("\033[96m");
+		jug.setColor("Color 2");
 	
 	}	
 	
+	public void tira(){
 	
+	}
+	
+	public void minimax(){
+	
+		
+	
+	}
 }

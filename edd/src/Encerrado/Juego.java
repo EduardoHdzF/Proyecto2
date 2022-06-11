@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 /**
  * Clase Juego
- * @author Estrada García Luis Gerardo - 319013832
  * @author Hernandez Floriano Eduardo - 319121498
+ * @author Estrada García Luis Gerardo - 319013832
  */
 public class Juego{
 	
@@ -172,6 +172,7 @@ public class Juego{
     	
     	if(maquina){
 			while(true){
+				System.out.println("--------------- Estrategia ---------------------");
 				System.out.println("Elija la estrategia de la máquina");
 				System.out.println("Escriba 1 si quiere \"al azar\" o 2 si quiere \"minimax\"");
 				System.out.println("*Ingrese el número 199 si desea salir*");
@@ -188,13 +189,19 @@ public class Juego{
 					}else if(en.equals("2")){
 						System.out.println("Escogió minimax");
 					}else{
-					 throw new IllegalArgumentException();
+					 	throw new IllegalArgumentException();
 					}
-					break;				
+					
+					break;
+					
 				}catch(IllegalArgumentException i){				
+				
 					System.out.println("\n\033[43mEscriba una opción correcta\033[49m\n");
+					
 				}catch(Exception e){
+				
 					System.out.println("\n\033[43mOcurrió un error, intente de nuevo\033[49m\n");
+					
 				}
 				
 			}
@@ -214,14 +221,15 @@ public class Juego{
 		Jugador b = null;
 		
 		while(true){
-	
+			
+			System.out.println("\n*********¿Quién iniciará el juego?**********");
 			if(!maquina){
 				b = turno();
 			}
-			if(b != null){
-				System.out.println("\nEscriba quien desea que inicie el juego, 1) para " + a + " 2) para " + b +  "\n");							
+			if(b != null){			
+				System.out.println("\nEscriba quien desea que inicie el juego, 1) para " + a + "; 2) para " + b +  "\n");							
 			}else{
-				System.out.println("\nEscriba quien desea que inicie el juego, 1) para " + a + " 2) para "+ "maquina"  +  "\n");											
+				System.out.println("\nEscriba quien desea que inicie el juego, 1) para " + a + "; 2) para "+ "maquina"  +  "\n");											
 			}
 			
 			System.out.println("*Ingrese el número 199 si desea salir*");
@@ -229,6 +237,7 @@ public class Juego{
 			if(en.contains("199")){
 				despedida();
 			}
+			
 			try{
 				int q = Integer.parseInt(en);
 					
@@ -240,9 +249,11 @@ public class Juego{
 						j = jugadores.pop();	
 						jugadores.push(j);
 						j = jugadores.pop();
+						
 						System.out.println("\n\033[42mComienza "  + j.getNombre()+ "\033[49m\n");
 						ahora = j;
 						jugadores.push(j);
+						
 					}
 				}else if(q == 1){
 					
@@ -263,20 +274,24 @@ public class Juego{
     	}
     
     }
+    
     /**
      * Nos devuelve el jugador que sigue en el turno
    	 * @return el jugador a quien le toca tirar.
      */
     public Jugador turno(){
     
-    	Jugador j = jugadores.pop();    	
+    	Jugador j = jugadores.pop();
+    		
     	if(ahora == j && maquina){
     		jugadores.push(j);
     		ahora = null;
     		return null;
     	}else{
+    		System.out.print("Sol " + ahora + " Luna " + j);
     		ahora = j;
     		jugadores.push(j);
+    		
     	}
     	return j;
     }
@@ -287,15 +302,18 @@ public class Juego{
     public void corre(){
     
 		System.out.println("\033[H\033[2J");
-		//System.out.flush();		
+		//System.out.flush();
+				
 		bienvenida();
 		jugadores();
 		
 		//Muestra quienes son los jugadores
 		Jugador j = jugadores.pop();		
+		
 		System.out.println("\nJugador 1: " + j.getNombre());
+		
 		jugadores.push(j);
-				
+		
 		if(maquina != true){
 		
 			j = jugadores.pop();
@@ -311,25 +329,29 @@ public class Juego{
 		//Nos muestra los elementos del juego
 		
 		System.out.println("\nElementos del juego: Un tablero con 5 posiciones:");
-		System.out.println("las numeradas del 1 al 4 y la posición 5 que es la del centro.\n");
-				
+		System.out.println("las numeradas del 1 al 4 y la posición 5 que es la del centro.\n");				
 		
 		
 		tablero.dibujaTablero();				
 		tablero.dibujaFicha(0);
+		
 		
 		System.out.println("\n      Escoja la posición de inicial de las fichas");		
 		System.out.println("\nPresione w si quiere poner una posición deseada o ENTER si quiere la posición por defecto");	
 		System.out.println("*Ingrese el número 199 si desea salir*");
 												
 		String d = entrada.nextLine();
+		
 		if(d.contains("199")){
 			despedida();
 		}
+		
 		if(d.equals("w")){
 			
 			String[] paso = new String[4];
+			
 			Lista<String> falta = new Lista<String>();
+			
 			falta.add("Ficha 1");
 			falta.add("Ficha 2");
 			falta.add("Ficha 3");
@@ -339,31 +361,24 @@ public class Juego{
 			
 				while(true){
 				
-				System.out.println("\nEscriba la ficha con la posición deseada en forma de pareja ordenada");
+				System.out.println("\n		Escriba la ficha con la posición deseada en forma de pareja ordenada");
 				System.out.println("De la forma <Ficha>, posición, ejemplo: Ficha 1, 1 (Asegúrese de escribir la palabra de la manera correcta:)\n");
 				System.out.println("Fichas disponibles para su posicionamiento en el tablero: " + falta.toString() + "\n");				
-				System.out.println("*Ingrese el número 199 si desea salir*");
+				System.out.println("*Ingrese el número 199 si desea salir*\n");
 							
 					tablero.dibujaFicha(0);
 					
 					String en = entrada.nextLine();
+					
 					if(en.contains("199")){
 						despedida();
 					}
-					String[] aux = en.split(",");
-								
 					
-					for(int i = 0; i < aux.length; i++){
-					
-						//System.out.println(aux[i] + " Ejemplo");
-						
-					}
-					
+					String[] aux = en.split(",");																		
 					
 					try{
 					
-						if(aux[1].contains("5")) {
-							System.out.println("papi");
+						if(aux[1].contains("5")) {							
 							throw new IllegalArgumentException();								
 						}																	
 						
@@ -371,10 +386,11 @@ public class Juego{
 						for(int i = 0; i < 4; i++){
 							
 							if(paso[i] != null && aux[0] != null){
-							//System.out.println("no es vacío");
+							
 								if(paso[i].contains(aux[0])) throw new IllegalArgumentException();//a = //false;
 								
 								String[] p = paso[i].split(",");
+								
 								if(p[1].contains(aux[1])) throw new IllegalArgumentException();//a = //false;
 								
 							}else{
@@ -399,6 +415,7 @@ public class Juego{
 		
 		
 		}else{
+		
 			System.out.println("\nPosición por defecto\n");
 			tablero.pInicial();	
 		}
@@ -406,6 +423,7 @@ public class Juego{
 		System.out.println("\n Presione ENTER para continuar");
 		entrada.nextLine();
 		//System.out.println("\033[H\033[2J");					
+		
 		System.out.println("Fichas de cada jugador\n");
 		tablero.dibujaFicha(1);
 		
@@ -444,59 +462,87 @@ public class Juego{
 		prueba.add(7);
 		prueba.add(9);
 		System.out.println(m.mini);
+		int contador = 0;
 		
-		while(tablero.puedoMoverme(ahora)){
+		if(ahora == null){
+			System.out.println("Mantenimiento");
+		}else{
 		
-			while(true){
+			while(tablero.puedoMoverme(ahora)){
 				
-				try{
+				while(true){
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				tablero.dibujaTablero();
-				System.out.println("\nIngrese la ficha que desee mover, escriba 1 si su ficha está más a su izquierda o 2 si está más a su derecha");
-				System.out.println("*Ingrese el número 199 si desea salir*");
-				
-				String en = entrada.nextLine();
-				
-				if(en.contains("199")){
-					despedida();
-				}
-				
-				int fich = Integer.parseInt(en);	
-				
-				if(fich < 1 || fich > 2){
-					throw new IllegalArgumentException();
-				}
-				
-				System.out.println("\nIngrese la posición que desea jugar(recuerde que solo puede elegir un número entre el 1 y 5)");				
-				
-				System.out.println("*Ingrese el número 199 si desea salir*");
-											
-					en = entrada.nextLine();
+					System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");
+					
+					try{
+					
+					
+					tablero.dibujaTablero();
+					System.out.println("\nIngrese la ficha que desee mover, escriba 1 si su ficha está más a su izquierda o 2 si está más a su derecha");
+					System.out.println("*Ingrese el número 199 si desea salir*");
+					
+					String en = entrada.nextLine();
 					
 					if(en.contains("199")){
 						despedida();
 					}
-					int ps = Integer.parseInt(en);
 					
-					if(ps < 1 || ps > 5){
+					int fich = Integer.parseInt(en);	
+					
+					if(fich < 1 || fich > 2){
 						throw new IllegalArgumentException();
 					}
 					
-					System.out.println(ahora + " es el jugador que ha tirado" );
-					System.out.println();
+					System.out.println("\nIngrese la posición que desea jugar(recuerde que solo puede elegir un número entre el 1 y 5)");				
 					
-					tablero.mueve(ahora, ps, fich);//La función que nos permite mover la ficha en el lugar indicado
+					System.out.println("*Ingrese el número 199 si desea salir*");
+												
+						en = entrada.nextLine();
+						
+						if(en.contains("199")){
+							despedida();
+						}
+						
+						int ps = Integer.parseInt(en);
+						
+						if(ps < 1 || ps > 5){
+							throw new IllegalArgumentException();
+						}
+						
+						System.out.println(ahora + " es el jugador que ha tirado" );
+						System.out.println();
+						
+						//if(contador == 0){
+						tablero.mueve(ahora, ps, fich);//La función que nos permite mover la ficha en el lugar indicado
+						//}else{
+							
+							//tablero.mueve(turno(), ps, fich);
+						//}
+						turno();
+						break;
+						
+					}catch(Exception e){
+						
+						System.out.println("\n\033[43mIngrese una posición válida\033[49m");
+						
+					}
 					
+				}
+				contador++;
+				
+				System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");					
+				tablero.dibujaTablero();
+				
+				if(ahora == null){
 					break;
-					
-				}catch(Exception e){
-					
-					System.out.println("\n\033[43mIngrese una posición válida\033[49m");
-					
+				}else{
+					continue;			
 				}
 				
 			}
+		
 		}
+		
 		String[] arr = m.colores;
 		
 		for(int i = 0; i < arr.length; i++){
