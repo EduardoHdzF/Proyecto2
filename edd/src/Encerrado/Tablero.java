@@ -18,8 +18,8 @@ public class Tablero{
 	protected boolean e4;
 	protected boolean e5;
 	private String[] color = new String[5];
-	private String[][] nodos = new String[5][3];
-	private Pila<String> mov = new Pila<String>();
+	//private String[][] nodos = new String[5][3];
+	//private Pila<String> mov = new Pila<String>();
 	//private String[] nodos = new String[5];
 	
 	String f1 = "⣴⣿⣿⣿";	
@@ -72,6 +72,10 @@ public class Tablero{
 		return this.color;		
 	}
 	
+	/* Nos devuelve la representación String del tablero que, en escencia es el dibujo del tablero */
+	public String toString(){	
+		return this.dibujo;		
+	}
 	/**
 	 * Nos dibuja el tablero en forma de String incluyendo los colores de los nodos
 	 */
@@ -630,7 +634,7 @@ public class Tablero{
 	 * 2 si está más a la derecha, regresa un error si es otro número
 	 *
 	 */
-	private int aparicionFicha(int a, String tinte){
+	protected int aparicionFicha(int a, String tinte){
 		
 		if(a < 1 || a > 2){
 			throw new IllegalArgumentException();
@@ -698,7 +702,7 @@ public class Tablero{
 
 		for(int i = 0; i < color.length; i++){
 			if(color[i] != null)
-			System.out.println(!color[i].equals(tinte) + " caki " + i );
+			//System.out.println(!color[i].equals(tinte) + " caki " + i );
 			
 			if(color[i] != null && !color[i].equals(tinte)){
 				
@@ -778,7 +782,7 @@ public class Tablero{
 				
 		
 		}	
-		System.out.println(" aaa " + a);			
+		//System.out.println(" aaa " + a);			
 		return a;
 	}	
 	

@@ -32,7 +32,7 @@ public class Jugador{
 		return this.ficha;	
 	}
 	public void setFicha(String f){
-		ficha = f;	
+		this.ficha = f;	
 	}
 	public String getColor(){
 		return this.color;	

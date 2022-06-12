@@ -10,30 +10,37 @@ import java.util.Random;
  */
 public class Maquina{
 
-	public ArbolBinarioCompleto<Integer> mini;
+	public ArbolBinarioCompleto<Tiro> mini;
 	public Tablero tablero;
 	public String[] colores;
-	private Jugador jug;
+	private Jugador yo;
+	private Jugador contrincante;
 	private boolean azar;
 	private boolean minimax;
 	
 	public Maquina(){
 			
-		jug = new Jugador();
-		mini = new ArbolBinarioCompleto<Integer>();	
-		tablero = new Tablero();
-		jug.setFicha("\033[96m");
-		jug.setColor("Color 2");
+		yo = new Jugador();
+		contrincante = new Jugador();		
+		mini = new ArbolBinarioCompleto<Tiro>();	
+		tablero = new Tablero();		
+		yo.setFicha("\033[96m");
+		yo.setColor("Color 2");
+		contrincante.setFicha("\033[91m");
+		contrincante.setColor("Color 1");
 	}
 	
 	public Maquina(Tablero t){
 		
-		jug = new Jugador();
-		mini = new ArbolBinarioCompleto<Integer>();	
+		yo = new Jugador();
+		contrincante = new Jugador();
+		mini = new ArbolBinarioCompleto<Tiro>();	
 		tablero = t;
 		colores = t.getColores();
-		jug.setFicha("\033[96m");
-		jug.setColor("Color 2");
+		yo.setFicha("\033[96m");
+		yo.setColor("Color 2");
+		contrincante.setFicha("\033[91m");
+		contrincante.setColor("Color 1");
 	
 	}	
 	
@@ -52,21 +59,28 @@ public class Maquina{
 	public void tira(){
 		
 		if(minimax){
-		
+			tMinimax();
 		}else if(azar){
 			tiroAzar();			
 		}
 	}
 	
-	public void minimax(){
+	public void tMinimax(){
 	
+	System.out.println("          \033[41mTurno de la Máquina\033[49m");
 		
+		Tiro t = new Tiro(tablero, yo);
+		mini.add(t);
+		
+		System.out.println(mini.toString());
 	
 	}
-	
+	/**
+	 * Nos hace un tiro al azar si se encuentra un espacio en blanco en el tablero.
+	 */
 	public void tiroAzar(){
 	
-		if(!tablero.puedoMoverme(jug)) throw new IllegalArgumentException();
+		if(!tablero.puedoMoverme(yo)) throw new IllegalArgumentException();
 		
 		System.out.println("          \033[41mTurno de la Máquina\033[49m");
 		
@@ -80,19 +94,20 @@ public class Maquina{
 		
 		if(valor <= 5){
 			try{				
-				tablero.mueve(jug, p, 1);
+				tablero.mueve(yo, p, 1);
 			}catch(IllegalArgumentException iea){
-				tablero.mueve(jug, p, 2);
+				tablero.mueve(yo, p, 2);
 			}
 			
 		}else{
 			try{				
-				tablero.mueve(jug, p, 2);
+				tablero.mueve(yo, p, 2);
 			}catch(IllegalArgumentException iea){
-				tablero.mueve(jug, p, 1);
+				tablero.mueve(yo, p, 1);
 			}			
 		}
 		
+		tablero.dibujaTablero();	
 	}
 }
 

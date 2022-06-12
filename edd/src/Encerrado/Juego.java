@@ -293,7 +293,7 @@ public class Juego{
     		ahora = null;
     		return null;
     	}else{
-    		System.out.print("Sol " + ahora + " Luna " + j);
+    		System.out.println("(turno)Sol " + ahora + " Luna " + j);
     		ahora = j;
     		jugadores.push(j);
     		
@@ -467,13 +467,39 @@ public class Juego{
 		//prueba.add(7);
 		//prueba.add(9);
 		//System.out.println(m.mini);
-		int contador = 0;
+		
 		
 		if(ahora == null){
-			System.out.println("Mantenimiento");
+			System.out.println("Trabajando en ello...");
+			try{					
+				m.tira();
+			}catch(IllegalArgumentException iea){
+				System.out.println("Eres automático");
+				//break;
+			}
+			turno();
+			tiroUsuario();
 		}else{
 		
-			while(tablero.puedoMoverme(ahora)){
+			tiroUsuario();	
+		
+		}
+		
+		//String[] arr = m.colores;
+		
+		//for(int i = 0; i < arr.length; i++){
+		
+			//System.out.println(i + " clima(J) " + arr[i]);
+		
+		//}
+		
+    }
+    
+    public void tiroUsuario(){
+    	
+    	int contador = 0;
+    	
+    	while(tablero.puedoMoverme(ahora)){
 				
 				while(true){
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -539,6 +565,7 @@ public class Juego{
 				tablero.dibujaTablero();
 				
 				if(ahora == null){
+				//System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");	
 					try{					
 						m.tira();
 					}catch(IllegalArgumentException iea){
@@ -553,19 +580,8 @@ public class Juego{
 				}
 				
 			}
-		
-		}
-		
-		//String[] arr = m.colores;
-		
-		//for(int i = 0; i < arr.length; i++){
-		
-			//System.out.println(i + " clima(J) " + arr[i]);
-		
-		//}
-		
+			
     }
-    
 	public static void main(String[] args){
 			
 		Juego nuevo = new Juego();
