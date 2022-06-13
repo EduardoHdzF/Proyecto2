@@ -11,13 +11,13 @@ import java.util.Random;
 public class Tablero{
 
 	public String dibujo;
-	private String ficha;						
+	protected String ficha;						
 	protected boolean e1;
 	protected boolean e2;
 	protected boolean e3;
 	protected boolean e4;
 	protected boolean e5;
-	private String[] color = new String[5];
+	protected String[] color = new String[5];
 	//private String[][] nodos = new String[5][3];
 	//private Pila<String> mov = new Pila<String>();
 	//private String[] nodos = new String[5];
@@ -67,6 +67,30 @@ public class Tablero{
 		e5 = false;
 	}
 	
+	public Tablero clone(){
+	
+		Tablero aux = new Tablero();
+		aux.dibujo = this.dibujo;
+		aux.ficha = this.ficha;						
+		aux.e1 = this.e1;
+		aux.e2 = this.e2;
+		aux.e3 = this.e3;
+		aux.e4 = this.e4;
+		aux.e5 = this.e5;
+		aux.color = this.color.clone();
+		/*
+		aux.f1	= this.f1;
+		aux.ff1 = this.ff1;	
+		aux.f2 = this.f2;
+		aux.ff2 = this.ff2;
+		aux.f3 = this.f3;
+		aux.ff3 = this.ff3;					
+		aux.f4 = this.f4;
+		aux.ff4 = this.f4;
+	*/
+	//protected String[] color = new String[5];
+		return aux;
+	}
 	/* Nos regresa el arreglo que nos indica que color tiene cada nodo o si está vacío*/
 	public String[] getColores(){
 		return this.color;		
@@ -474,7 +498,7 @@ public class Tablero{
 		
 		for(int i = 0; i < color.length; i++){
 			
-			System.out.println("Color al inicio "+ i + " " + color[i]);
+			System.out.println("(mueve)Color al inicio "+ i + " " + color[i]);
 				
 		}
 		
@@ -621,7 +645,7 @@ public class Tablero{
 
 		for(int i = 0; i < color.length; i++){
 				//System.out.println("- " + i + " - " + color[i] );
-				System.out.println("Color "+ i + " " + color[i]);
+				System.out.println("(tavblero)Color final "+ i + " " + color[i]);
 				
 			}
 			

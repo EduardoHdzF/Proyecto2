@@ -11,15 +11,15 @@ import edd.src.Estructuras.*;
 public class Tiro{
 	
 	private int puntuacion;
-	private String tablerillo;
-	private Tablero tab;//Aguas, aquí no existe el clone
+	protected String tablerillo;
+	protected Tablero tab;//Aguas, aquí no existe el clone, estaba en privado
 	private String[] nodos;
 	private Jugador participante;
 	
 	public Tiro(Tablero t, Jugador j){
 		
 		this.participante = j;
-		this.tab = t;
+		this.tab = t.clone();
 		puntuacion = 0;
 		nodos = t.getColores().clone();
 		tablerillo = t.toString();		
@@ -30,7 +30,7 @@ public class Tiro{
 	
 		String regresa = new String();
 		regresa = "El participante es: " + participante + "\n";
-		regresa = regresa + tablerillo + "\n";
+		regresa = regresa + tab + "\n";
 		regresa = regresa + "Esquinas del 1 al 5\n"; 
 		for(int i = 0; i < nodos.length; i++){
 			regresa = regresa + (i+1) + " " + nodos[i] + "\n";		
@@ -45,13 +45,14 @@ public class Tiro{
 		if(i == 1){
 		
 			tab.mueve(participante, v, 1);
-		}
-		if(i == 2){
+			//tablerillo = tab.dibujo;
+		//}
+		}else if(i == 2){
 			
 			tab.mueve(participante, v, 2);
 		
 		}else{
-						
+			System.out.println("perrrooo(opciones)");			
 		}
 	
 	}	

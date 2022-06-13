@@ -68,12 +68,32 @@ public class Maquina{
 	public void tMinimax(){
 	
 	System.out.println("          \033[41mTurno de la Máquina\033[49m");
+		System.out.println("--------------------------------Pruebas de arbol--------------");
 		
-		Tiro t = new Tiro(tablero, yo);
+		Tiro t = new Tiro(tablero.clone(), yo);		
 		mini.add(t);
 		
+		Tiro te = new Tiro(tablero.clone(), yo);
+		try{
+			te.opciones(1);
+			System.out.println("Ej1 \n" + te.tab);
+		}catch(Exception e){
+			System.out.println("whysky");
+		}
+		mini.add(te);
+		
+		Tiro tee = new Tiro(tablero.clone(), yo);
+		try{
+			tee.opciones(2);
+			System.out.println("Ej2 \n" + tee.tab);
+		}catch(Exception e){
+			System.out.println("whysky1");
+		}
+		mini.add(tee);
+		
 		System.out.println(mini.toString());
-	
+		
+		System.out.println("--------------Pruebas minimacs------------");
 	}
 	/**
 	 * Nos hace un tiro al azar si se encuentra un espacio en blanco en el tablero.
