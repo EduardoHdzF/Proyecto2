@@ -78,7 +78,7 @@ public class Tablero{
 		aux.e4 = this.e4;
 		aux.e5 = this.e5;
 		aux.color = this.color.clone();
-		/*
+		
 		aux.f1	= this.f1;
 		aux.ff1 = this.ff1;	
 		aux.f2 = this.f2;
@@ -86,8 +86,10 @@ public class Tablero{
 		aux.f3 = this.f3;
 		aux.ff3 = this.ff3;					
 		aux.f4 = this.f4;
-		aux.ff4 = this.f4;
-	*/
+		aux.ff4 = this.ff4;
+		aux.f5 = this.f5;
+		aux.ff5 = this.ff5;
+		aux.fff5 = this.fff5;
 	//protected String[] color = new String[5];
 		return aux;
 	}
@@ -98,13 +100,7 @@ public class Tablero{
 	
 	/* Nos devuelve la representación String del tablero que, en escencia es el dibujo del tablero */
 	public String toString(){	
-		return this.dibujo;		
-	}
-	/**
-	 * Nos dibuja el tablero en forma de String incluyendo los colores de los nodos
-	 */
-	public void dibujaTablero(){	
-			
+	
 			dibujo = "";
 			dibujo = "\033[1m\033[107m 2 \033[49m                                       \033[107m 3 \033[0m\033[49m\n";
 			dibujo = dibujo + f2 + "⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀"+ f3 + "\n";
@@ -127,8 +123,38 @@ public class Tablero{
 			dibujo = dibujo + f1 + "⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄" + f4 + "\n";
 			dibujo = dibujo + ff1 + "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄" + ff4 + "\n";
 			dibujo = dibujo + "\033[1m\033[107m 1 \033[49m                                       \033[107m 4 \033[0m\033[49m\n";
+		return this.dibujo;		
 		
-		System.out.println(dibujo);
+	}
+	/**
+	 * Nos dibuja el tablero en forma de String incluyendo los colores de los nodos
+	 */
+	public void dibujaTablero(){	
+			/*
+			dibujo = "";
+			dibujo = "\033[1m\033[107m 2 \033[49m                                       \033[107m 3 \033[0m\033[49m\n";
+			dibujo = dibujo + f2 + "⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀"+ f3 + "\n";
+			dibujo = dibujo + ff2 + "⡉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉" + ff3 + "\n";
+			dibujo = dibujo + "⠄⢰⡇⠄⠙⠢⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⡴⠚⠁⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠈⠳⢤⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠔⠋⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠙⠦⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⡤⠚⠁⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣤⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠴⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⡤⠞⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⡀⠄⠄⠄⠄⠄⠄⣀⡴⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦"+ f5 + "⣠⠞⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄" + ff5 + "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠖"+ fff5 + "⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⡴⠚⠁⠄⠄⠄⠄⠄⠄⠉⠲⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠖⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⠄⠄⢀⡤⠚⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⠲⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⠄⠄⠄⣠⠴⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢤⡀⠄⠄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⠄⠄⢀⡤⠞⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⠦⣄⠄⠄⠄⠄⣿⠄⠄\n";
+			dibujo = dibujo + "⠄⢸⡇⠄⣀⠴⠋⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⢤⡀⠄⣿⠄⠄\n";
+			dibujo = dibujo + f1 + "⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄" + f4 + "\n";
+			dibujo = dibujo + ff1 + "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄" + ff4 + "\n";
+			dibujo = dibujo + "\033[1m\033[107m 1 \033[49m                                       \033[107m 4 \033[0m\033[49m\n";
+			*/
+		System.out.println(toString());
 	}
 	
 	/**

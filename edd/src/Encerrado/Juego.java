@@ -12,10 +12,15 @@ import java.util.Scanner;
 public class Juego{
 	
 	private Scanner entrada;
+	
 	private Cola<Jugador> jugadores;
+	
 	private Tablero tablero;
+	
 	private boolean maquina; 
+	
 	private Jugador ahora;//El jugador que está jugando ahora, es null si el turno es de la máquina
+	
 	private Maquina m;
 	
 	/**
@@ -32,12 +37,14 @@ public class Juego{
      * Mensaje de bienvenida
      */
     public void bienvenida() {
+    
 		System.out.println("\n\033[96m-------- Hola, bienvenido al juedo del encerrado --------\033[39m\n");				
 		System.out.println("\033[5m                Presione ENTER para jugar\033[25m");		
 		System.out.println("\n El juego consiste en lograr que las piezas del oponente"); 
 		System.out.println("              ya no puedan moverse");
 		System.out.println("*Ingrese el número 199 si desea salir*");
 		String en = entrada.nextLine();
+		
 		if(en.contains("199")){
 			despedida();
 		}
@@ -76,7 +83,8 @@ public class Juego{
 		System.out.println("⣿⣿⣇⠄⣰⣶⣿⣿⣿⣦⣀⡀⠄⠄⠄⠄⠄⠄⠄⢀⣠⣴⣿⣿⣿⣶⣆⠄⢀⣿");
 		System.out.println("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠄⠄⢸⣿⠇⠄⠄⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿");
 		System.out.println("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣤⣴⣾⣿⣶⣤⣤⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿");    
-				System.exit(0);		    
+		System.exit(0);
+		
     }
     
 	/**
@@ -172,7 +180,9 @@ public class Juego{
 	public void estrategia(){
     	
     	if(maquina){
+    	
 			while(true){
+			
 				System.out.println("--------------- Estrategia ---------------------");
 				System.out.println("Elija la estrategia de la máquina");
 				System.out.println("Escriba 1 si quiere \"al azar\" o 2 si quiere \"minimax\"");
@@ -306,8 +316,9 @@ public class Juego{
      */
     public void corre(){
     
-		System.out.println("\033[H\033[2J");
+		//System.out.println("\033[H\033[2J");
 		//System.out.flush();
+		System.out.println("\033[H\033[2J");
 				
 		bienvenida();
 		jugadores();

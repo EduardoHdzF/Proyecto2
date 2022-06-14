@@ -76,7 +76,8 @@ public class Maquina{
 		Tiro te = new Tiro(tablero.clone(), yo);
 		try{
 			te.opciones(1);
-			System.out.println("Ej1 \n" + te.tab);
+			System.out.println("Ej1 \n" + te.tab + "Perrisíma \n");
+			te.tab.dibujaTablero();
 		}catch(Exception e){
 			System.out.println("whysky");
 		}
