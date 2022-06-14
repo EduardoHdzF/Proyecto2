@@ -471,13 +471,16 @@ public class Juego{
 		System.out.println("\033[41mBien\033[49m " + ahora);
 
 		//Pruebas------
-		//Maquina m = new Maquina(tablero);
-		//ArbolBinarioCompleto<Integer> prueba = m.mini;
-		//prueba.add(6);
-		//prueba.add(3);
-		//prueba.add(7);
-		//prueba.add(9);
-		//System.out.println(m.mini);
+		Maquina m = new Maquina(tablero);
+		
+		ArbolBinarioCompleto<Integer> prueba = new ArbolBinarioCompleto<Integer>();
+		
+		prueba.add(6);
+		prueba.add(3);
+		prueba.add(7);
+		prueba.add(9);
+		System.out.println("a ver " + prueba.bfs());
+		System.out.println(prueba);
 		
 		
 		if(ahora == null){
@@ -495,15 +498,7 @@ public class Juego{
 			tiroUsuario();	
 		
 		}
-		
-		//String[] arr = m.colores;
-		
-		//for(int i = 0; i < arr.length; i++){
-		
-			//System.out.println(i + " clima(J) " + arr[i]);
-		
-		//}
-		
+				
     }
     
     public void tiroUsuario(){
@@ -514,7 +509,7 @@ public class Juego{
 				
 				while(true){
 				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-					System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");
+					System.out.println("                                  \n\033[39m\033[40m" + ahora + "\033[49m\033[39m");
 					
 					try{
 					
@@ -572,11 +567,11 @@ public class Juego{
 				}
 				contador++;
 				
-				//System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");					
+				//System.out.println("                                  \n\033[30m\033[40m" + ahora + "\033[49m\033[39m");					
 				tablero.dibujaTablero();
 				
 				if(ahora == null){
-				//System.out.println("                                  \n\033[30m\033[47m" + ahora + "\033[49m\033[39m");	
+				//System.out.println("                                  \n\033[30m\033[40m" + ahora + "\033[49m\033[39m");	
 					try{					
 						m.tira();
 					}catch(IllegalArgumentException iea){

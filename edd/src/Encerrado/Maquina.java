@@ -67,31 +67,74 @@ public class Maquina{
 	
 	public void tMinimax(){
 	
-	System.out.println("          \033[41mTurno de la Máquina\033[49m");
-		System.out.println("--------------------------------Pruebas de arbol--------------");
+		System.out.println("          \033[41mTurno de la Máquina\033[49m");
 		
-		Tiro t = new Tiro(tablero.clone(), yo);		
+		System.out.println("--------------------------------Pruebas de arbol--------------");		
+		
+		Cola<Tiro> cola = new Cola<Tiro>();
+		
+		Tiro t = new Tiro(tablero.clone(), yo);
+		mini.add(t);
+		cola.add(t);
+		t = new Tiro(tablero.clone(), yo);
+		
+		
+		try{
+		
+			t.opciones(1);
+		
+		}catch(Exception e){
+			
+			System.out.println("whysky");
+			
+		}
 		mini.add(t);
 		
-		Tiro te = new Tiro(tablero.clone(), yo);
+		t = new Tiro(tablero.clone(), yo);
+		
 		try{
-			te.opciones(1);
-			System.out.println("Ej1 \n" + te.tab + "Perrisíma \n");
-			te.tab.dibujaTablero();
+		
+			t.opciones(2);
+		
 		}catch(Exception e){
+			
 			System.out.println("whysky");
+			
 		}
+		
+		mini.add(t);
+		
+		
+		//Tiro v = mini.bfs();
+		
+		//System.out.println(v);
+		
+		/*
+		Tiro te = new Tiro(tablero.clone(), yo);
+		
+		try{
+		
+			te.opciones(1);
+		
+		}catch(Exception e){
+			
+			System.out.println("whysky");
+			
+		}
+		
 		mini.add(te);
 		
 		Tiro tee = new Tiro(tablero.clone(), yo);
+		
 		try{
 			tee.opciones(2);
-			System.out.println("Ej2 \n" + tee.tab);
+			//System.out.println("Ej2 \n" + tee.tab);
 		}catch(Exception e){
 			System.out.println("whysky1");
 		}
-		mini.add(tee);
 		
+		mini.add(tee);
+		*/
 		System.out.println(mini.toString());
 		
 		System.out.println("--------------Pruebas minimacs------------");

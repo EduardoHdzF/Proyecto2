@@ -95,12 +95,17 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     }
 
     private Vertice BFS(){
+    
         if(this.isEmpty()){
             return null;
         }
+        
         Cola<Vertice> a = new Cola<Vertice>();
+        
         a.push(raiz);
+        
         while (a.cabeza != null) {
+        
             Vertice b = a.pop();
             if (b.hayIzquierdo()) {
                 a.push(b.izquierdo);
@@ -114,6 +119,12 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         }
         return null;
 
+    }
+    
+    public T bfs(){
+    
+    	return BFS().elemento;
+    
     }
     
     /**
