@@ -476,9 +476,51 @@ public class Juego{
 		ArbolBinarioCompleto<Integer> prueba = new ArbolBinarioCompleto<Integer>();
 		
 		prueba.add(6);
-		prueba.add(3);
+		
+		prueba.add(3);		
 		prueba.add(7);
-		prueba.add(9);
+		
+		prueba.add(9);		
+		prueba.add(5);
+		
+		prueba.add(2);
+		int a = prueba.bfs();
+		System.out.println("bfs " + a);
+		/*
+		prueba.add(2);
+		prueba.add(1);
+		prueba.add(4);
+		prueba.add(8);*/
+		
+		prueba.add(1);
+		
+		int altura = prueba.altura();
+		
+		System.out.println(altura);
+		/*
+		while(prueba.altura() < 2 ){
+		
+			//if(altura == 0){
+				//tMinimax(cola, cola.pop(), yo);
+			//}.
+			altura = prueba.altura();
+			if(altura % 2 == 0){
+			
+				//tMinimax(cola, cola.pop(), contrincante);
+				prueba.add(2);
+				prueba.add(2);
+				
+			}else{
+			
+				//tMinimax(cola, cola.pop(), yo);
+				prueba.add(1);
+				prueba.add(1);
+			}
+			
+			
+			
+		}*/
+		
 		System.out.println("a ver " + prueba.bfs());
 		System.out.println(prueba);
 		

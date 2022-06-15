@@ -11,7 +11,7 @@ import java.util.Random;
 public class Tablero{
 
 	public String dibujo;
-	protected String ficha;						
+	//protected String ficha;						
 	protected boolean e1;
 	protected boolean e2;
 	protected boolean e3;
@@ -59,7 +59,7 @@ public class Tablero{
 	public Tablero(){
 		
 		dibujo = new String();
-		ficha = new String();
+		//ficha = new String();
 		e1 = false;
 		e2 = false;
 		e3 = false;
@@ -70,8 +70,8 @@ public class Tablero{
 	public Tablero clone(){
 	
 		Tablero aux = new Tablero();
-		aux.dibujo = this.dibujo;
-		aux.ficha = this.ficha;						
+		//aux.dibujo = this.dibujo;
+		//aux.ficha = this.ficha;						
 		aux.e1 = this.e1;
 		aux.e2 = this.e2;
 		aux.e3 = this.e3;

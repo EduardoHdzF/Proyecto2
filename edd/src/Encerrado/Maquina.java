@@ -59,42 +59,85 @@ public class Maquina{
 	public void tira(){
 		
 		if(minimax){
-			tMinimax();
+			//tMinimax();
+			mini();
 		}else if(azar){
 			tiroAzar();			
 		}
 	}
 	
-	public void tMinimax(){
+	public void mini(){
 	
 		System.out.println("          \033[41mTurno de la Máquina\033[49m");
-		
-		System.out.println("--------------------------------Pruebas de arbol--------------");		
 		
 		Cola<Tiro> cola = new Cola<Tiro>();
 		
 		Tiro t = new Tiro(tablero.clone(), yo);
-		mini.add(t);
-		cola.add(t);
-		t = new Tiro(tablero.clone(), yo);
 		
+		mini.add(t);
+		
+		cola.push(t);
+		
+		System.out.println("Altura inicial" + mini.altura());
+		int altura = 1;
+	
+		while(mini.altura() <= 2 ){
+		
+			//if(altura == 0){
+				//tMinimax(cola, cola.pop(), yo);
+			//}
+			if(altura % 2 == 0){
+			
+				tMinimax(cola, cola.pop(), contrincante);
+				
+			}else{
+			
+				tMinimax(cola, cola.pop(), yo);
+				
+			}
+			altura = mini.altura();
+			
+			
+		}
+		
+		//Tiro v = cola.pop();
+		//tMinimax(cola, v, yo);
+		System.out.println(mini.altura() + " con elementos " + mini.size());
+		//System.out.println(mini.toString());
+	}
+	public void tMinimax(Cola<Tiro> cola, Tiro t, Jugador jug){
+	
+		
+		
+		System.out.println("--------------------------------Pruebas de arbol--------------");		
+		
+		//Cola<Tiro> cola = new Cola<Tiro>();
+		
+		Tiro te = new Tiro(t.tab.clone(), jug);		//new Tiro(tablero.clone(), yo);
+		//mini.add(t);
+		//cola.push(t);
+		
+		
+		//te = new Tiro(t.tab.clone(), jug);		
 		
 		try{
 		
-			t.opciones(1);
+			te.opciones(1);
 		
 		}catch(Exception e){
 			
 			System.out.println("whysky");
 			
 		}
-		mini.add(t);
 		
-		t = new Tiro(tablero.clone(), yo);
+		mini.add(te);
+		cola.push(te);
+		
+		te = new Tiro(t.tab.clone(), jug);
 		
 		try{
 		
-			t.opciones(2);
+			te.opciones(2);
 		
 		}catch(Exception e){
 			
@@ -102,10 +145,11 @@ public class Maquina{
 			
 		}
 		
-		mini.add(t);
-		
+		mini.add(te);
+		cola.push(te);
 		
 		//Tiro v = mini.bfs();
+		
 		
 		//System.out.println(v);
 		
@@ -135,7 +179,7 @@ public class Maquina{
 		
 		mini.add(tee);
 		*/
-		System.out.println(mini.toString());
+		//System.out.println(mini.toString());
 		
 		System.out.println("--------------Pruebas minimacs------------");
 	}
