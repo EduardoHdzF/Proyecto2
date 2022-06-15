@@ -14,7 +14,7 @@ public class Tiro{
 	protected String tablerillo;
 	protected Tablero tab;//Aguas, aquí no existe el clone, estaba en privado
 	private String[] nodos;
-	private Jugador participante;
+	protected Jugador participante;
 	
 	public Tiro(Tablero t, Jugador j){
 		
@@ -24,6 +24,18 @@ public class Tiro{
 		nodos = t.getColores().clone();
 		tablerillo = t.toString();		
 				
+	}
+	
+	public void setPuntuacion(int a){
+	
+		this.puntuacion = a;
+	
+	}
+	
+	public int getPuntuacion(){
+	
+		return this.puntuacion;
+	
 	}
 	
 	public String toString(){

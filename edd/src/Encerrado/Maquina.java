@@ -79,32 +79,48 @@ public class Maquina{
 		cola.push(t);
 		
 		System.out.println("Altura inicial" + mini.altura());
-		int altura = 1;
-	
-		while(mini.altura() <= 2 ){
 		
-			//if(altura == 0){
-				//tMinimax(cola, cola.pop(), yo);
-			//}
-			if(altura % 2 == 0){
+		int altura = mini.altura();
+		
+		//Nos ayuda a saber el número de nodos de acuerdo a la profundidad 3.		
+		int f = potenciaDos(3);
+		
+		while(mini.size() < f-2){
+		
+			if(mini.size() == (potenciaDos(mini.altura()+1)-1)){
+				altura = mini.altura();
+			}
 			
-				tMinimax(cola, cola.pop(), contrincante);
-				
-			}else{
+			if(altura % 2 == 0){
 			
 				tMinimax(cola, cola.pop(), yo);
 				
-			}
-			altura = mini.altura();
+			}else{
 			
+				tMinimax(cola, cola.pop(), contrincante);
+				
+			}			
 			
 		}
 		
 		//Tiro v = cola.pop();
 		//tMinimax(cola, v, yo);
 		System.out.println(mini.altura() + " con elementos " + mini.size());
-		//System.out.println(mini.toString());
+		System.out.println(mini.toString());
 	}
+	
+	 private int potenciaDos(int a){
+    	
+    	int f = 1;
+    	
+    	for(int i = 1; i <= a; i++){
+		
+			f *= 2;
+			
+		}
+    	return f;
+    }
+    
 	public void tMinimax(Cola<Tiro> cola, Tiro t, Jugador jug){
 	
 		
@@ -112,6 +128,8 @@ public class Maquina{
 		System.out.println("--------------------------------Pruebas de arbol--------------");		
 		
 		//Cola<Tiro> cola = new Cola<Tiro>();
+				
+		if(!t.tab.puedoMoverme(jug)) return;
 		
 		Tiro te = new Tiro(t.tab.clone(), jug);		//new Tiro(tablero.clone(), yo);
 		//mini.add(t);
@@ -121,10 +139,22 @@ public class Maquina{
 		//te = new Tiro(t.tab.clone(), jug);		
 		
 		try{
-		
+			/* Aqui se puede mejorar el t.opciones para que sea más facil elegir puntuación
+			 * se me ocurrió poner el jugador de manera distinta, ya que se elegirá al jugador contrario(por lo de minimax)
+			*/
 			te.opciones(1);
 		
 		}catch(Exception e){
+			
+			if(jug.getColor().equals("Color 1")){
+			
+				te.setPuntuacion(1);
+			
+			}else if(jug.getColor().equals("Color 2")){
+			
+				te.setPuntuacion(-1);
+			
+			}
 			
 			System.out.println("whysky");
 			
@@ -141,6 +171,15 @@ public class Maquina{
 		
 		}catch(Exception e){
 			
+			if(jug.getColor().equals("Color 1")){
+			
+				te.setPuntuacion(1);
+			
+			}else if(jug.getColor().equals("Color 2")){
+			
+				te.setPuntuacion(-1);
+			
+			}
 			System.out.println("whysky");
 			
 		}
@@ -183,6 +222,63 @@ public class Maquina{
 		
 		System.out.println("--------------Pruebas minimacs------------");
 	}
+	
+	public void eligeOp(Tiro t){
+	
+		//Revisar caso null
+		ArbolBinario<Tiro>.Vertice  v = mini.vertice(mini.busca(t));
+		ArbolBinario<Tiro>.Vertice  i = mini.vertice(v.izquierdo());
+		ArbolBinario<Tiro>.Vertice  d = mini.vertice(v.derecho());
+		
+		eligeOp(i.get());
+		eligeOp(d.get());
+						
+		if(t.participante.getColor().equals("Color 1")){
+			t.setPuntuacion(minimo(i.get().getPuntuacion(), d.get().getPuntuacion()));	
+		}
+		else if(t.participante.getColor().equals("Color 2")){
+			t.setPuntuacion(minimo(i.get().getPuntuacion(), d.get().getPuntuacion()));	
+		}
+
+	}
+	
+	
+	/**	
+      * Auxiliar que nos devuelve el máximo de dos números.
+      * @param a el primer elemento.
+      * @param b el segundo elemento.
+      * @return el máximo entre estos dos números.
+     */
+    private int max(int a, int b){
+    	if(a > b){
+    		return a;
+    	}else if(b > a){
+    		return b;
+    	}else if(a == b){
+    		return a;
+    	}
+    	return -3;
+    }
+    
+    
+    /**	
+      * Auxiliar que nos devuelve el mínimo de dos números.
+      * @param a el primer elemento.
+      * @param b el segundo elemento.
+      * @return el mínimo entre estos dos números.
+     */
+    private int max(int a, int b){
+    	if(a < b){
+    		return a;
+    	}else if(b < a){
+    		return b;
+    	}else if(a == b){
+    		return a;
+    	}
+    	return -3;
+    }
+    
+    
 	/**
 	 * Nos hace un tiro al azar si se encuentra un espacio en blanco en el tablero.
 	 */

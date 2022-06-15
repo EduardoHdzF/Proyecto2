@@ -152,8 +152,26 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
     public Iterator<T> iterator() {
         return new Iterador();
     }
-
-  
+	
+	public Vertice vertice(Vertice v){
+    	return v;
+    }
+    
+    public void postOrden(T elemento){
+    	
+    	//Revisar Caso null
+    	
+    	
+    }
+    /*
+ 	public void busca(T elemento){ 	
+ 		
+ 		if(elemento == null) throw new IllegalArgumentException("El elemento a buscar es vacío");
+ 		Cola<T> cola = new Cola<T>();
+ 		if(isEmpty()) return;
+ 		
+ 	}   
+  	*/
 
 
 

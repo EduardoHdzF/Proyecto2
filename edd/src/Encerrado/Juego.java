@@ -475,7 +475,7 @@ public class Juego{
 		
 		ArbolBinarioCompleto<Integer> prueba = new ArbolBinarioCompleto<Integer>();
 		
-		prueba.add(6);
+		/*prueba.add(6);
 		
 		prueba.add(3);		
 		prueba.add(7);
@@ -485,6 +485,8 @@ public class Juego{
 		
 		prueba.add(2);
 		int a = prueba.bfs();
+		
+		
 		System.out.println("bfs " + a);
 		/*
 		prueba.add(2);
@@ -492,37 +494,58 @@ public class Juego{
 		prueba.add(4);
 		prueba.add(8);*/
 		
+		int f = 1;
+		//Sacamos el número de nodos "no es el numero en realidad" con altura 2, es decir prof 3
+		for(int i = 1; i <= 4; i++){
+		
+			f = f * 2;
+			
+		}
+		
+		System.out.println("Potencia es: " + f + " form " + potenciaDos(3));
 		prueba.add(1);
 		
 		int altura = prueba.altura();
 		
 		System.out.println(altura);
-		/*
-		while(prueba.altura() < 2 ){
+		
+		while(prueba.size() < f-2 ){
 		
 			//if(altura == 0){
 				//tMinimax(cola, cola.pop(), yo);
 			//}.
-			altura = prueba.altura();
-			if(altura % 2 == 0){
+			
+			if(prueba.size() == (potenciaDos(prueba.altura()+1)-1)){
+				altura = prueba.altura();
+			}
+			System.out.println("Altura " + altura + " modulo 2 = " + altura % 2);
+			
+			
+			if(altura % 2 != 0){ //&& (prueba.size() == (potenciaDos(altura+1)-1))){
 			
 				//tMinimax(cola, cola.pop(), contrincante);
-				prueba.add(2);
-				prueba.add(2);
+				System.out.println(prueba);
+				prueba.add(1);
+				System.out.println(prueba + " agregué");
+				prueba.add(1);
+				System.out.println(prueba + " agregué");
 				
 			}else{
 			
 				//tMinimax(cola, cola.pop(), yo);
-				prueba.add(1);
-				prueba.add(1);
+				System.out.println(prueba);
+				prueba.add(2);
+				System.out.println(prueba + " agregué");
+				prueba.add(2);
+				System.out.println(prueba + " agregué");
 			}
 			
 			
 			
-		}*/
+		}
 		
-		System.out.println("a ver " + prueba.bfs());
-		System.out.println(prueba);
+		System.out.println("a ver " + prueba.bfs() + " altura " + prueba.altura());
+		System.out.println(prueba + "\n Elementos " + prueba.size());
 		
 		
 		if(ahora == null){
@@ -543,6 +566,18 @@ public class Juego{
 				
     }
     
+    private int potenciaDos(int a){
+    	
+    	int f = 1;
+    	
+    	for(int i = 1; i <= a; i++){
+		
+			f *= 2;
+			
+		}
+    	return f;
+    }
+   
     public void tiroUsuario(){
     	
     	int contador = 0;

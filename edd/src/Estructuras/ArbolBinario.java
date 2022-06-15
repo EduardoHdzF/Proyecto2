@@ -18,7 +18,7 @@ public abstract class ArbolBinario<T> implements Collection<T> {
     /**
      * Clase interna protegida para vértices.
      */
-    protected class Vertice implements VerticeArbolBinario<T> {
+    public class Vertice implements VerticeArbolBinario<T> {
 
         /** El elemento del vértice. */
         public T elemento;
@@ -34,8 +34,9 @@ public abstract class ArbolBinario<T> implements Collection<T> {
          * @param elemento el elemento del vértice.
          */
         public Vertice(T elemento) {
-          if(elemento!=null)
-             this.elemento=elemento;
+          
+        	if(elemento!=null) this.elemento=elemento;
+             
         }
 
         /**
@@ -71,6 +72,7 @@ public abstract class ArbolBinario<T> implements Collection<T> {
          * @throws NoSuchElementException si el vértice no tiene padre.
          */
         @Override public VerticeArbolBinario<T> padre() {
+        
             if (padre == null)
                 throw new NoSuchElementException("El vértice no tiene padre.");
             return padre;
@@ -209,7 +211,8 @@ public abstract class ArbolBinario<T> implements Collection<T> {
     public ArbolBinario() {
 		
     }
-
+	
+	
     // Revisar forEach
     public ArbolBinario(Collection<T> coleccion) {
         for (T elemento : coleccion){
@@ -414,7 +417,7 @@ public abstract class ArbolBinario<T> implements Collection<T> {
      * @throws ClassCastException si el vértice no es instancia de {@link
      *                            Vertice}.
      */
-    protected Vertice vertice(VerticeArbolBinario<T> vertice) {
+    public Vertice vertice(VerticeArbolBinario<T> vertice) {
         return (Vertice) vertice;
     }
 
