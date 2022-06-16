@@ -59,10 +59,13 @@ public class Maquina{
 	public void tira(){
 		
 		if(minimax){
-			//tMinimax();
+		
 			mini();
+			
 		}else if(azar){
+		
 			tiroAzar();			
+			
 		}
 	}
 	
@@ -72,7 +75,7 @@ public class Maquina{
 		
 		Cola<Tiro> cola = new Cola<Tiro>();
 		
-		Tiro t = new Tiro(tablero.clone(), yo);
+		Tiro t = new Tiro(tablero.clone(), contrincante);
 		
 		mini.add(t);
 		
@@ -105,8 +108,13 @@ public class Maquina{
 		
 		//Tiro v = cola.pop();
 		//tMinimax(cola, v, yo);
-		System.out.println(mini.altura() + " con elementos " + mini.size());
+		System.out.println("Altura " + mini.altura() + " con elementos " + mini.size());
+		
+		
+		
+		eligeOp(mini.vertice(mini.raiz()));
 		System.out.println(mini.toString());
+		
 	}
 	
 	 private int potenciaDos(int a){
@@ -126,17 +134,10 @@ public class Maquina{
 		
 		
 		System.out.println("--------------------------------Pruebas de arbol--------------");		
-		
-		//Cola<Tiro> cola = new Cola<Tiro>();
-				
-		if(!t.tab.puedoMoverme(jug)) return;
+			
 		
 		Tiro te = new Tiro(t.tab.clone(), jug);		//new Tiro(tablero.clone(), yo);
-		//mini.add(t);
-		//cola.push(t);
-		
-		
-		//te = new Tiro(t.tab.clone(), jug);		
+								
 		
 		try{
 			/* Aqui se puede mejorar el t.opciones para que sea más facil elegir puntuación
@@ -146,17 +147,24 @@ public class Maquina{
 		
 		}catch(Exception e){
 			
-			if(jug.getColor().equals("Color 1")){
+			//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));		
+			if(!te.tab.puedoMoverme(jug)){	
 			
-				te.setPuntuacion(1);
-			
-			}else if(jug.getColor().equals("Color 2")){
-			
-				te.setPuntuacion(-1);
-			
+				if(jug.getColor().equals("Color 1")){
+				
+					te.setPuntuacion(1);
+				
+				}else if(jug.getColor().equals("Color 2")){
+				
+					te.setPuntuacion(-1);
+				
+				}
+				mini.add(te);
+				cola.push(te);
+				
 			}
-			
-			System.out.println("whysky");
+			//return;
+			//System.out.println("whysky");
 			
 		}
 		
@@ -171,75 +179,148 @@ public class Maquina{
 		
 		}catch(Exception e){
 			
-			if(jug.getColor().equals("Color 1")){
-			
-				te.setPuntuacion(1);
-			
-			}else if(jug.getColor().equals("Color 2")){
-			
-				te.setPuntuacion(-1);
-			
+			//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));
+			if(!te.tab.puedoMoverme(jug)){
+				
+				if(jug.getColor().equals("Color 1")){
+				
+					te.setPuntuacion(1);
+				
+				}else if(jug.getColor().equals("Color 2")){
+				
+					te.setPuntuacion(-1);
+				
+				}
+				mini.add(te);
+				cola.push(te);
+				
 			}
 			System.out.println("whysky");
-			
+			//return;
 		}
 		
 		mini.add(te);
 		cola.push(te);
 		
-		//Tiro v = mini.bfs();
-		
-		
-		//System.out.println(v);
-		
-		/*
-		Tiro te = new Tiro(tablero.clone(), yo);
-		
-		try{
-		
-			te.opciones(1);
-		
-		}catch(Exception e){
-			
-			System.out.println("whysky");
-			
-		}
-		
-		mini.add(te);
-		
-		Tiro tee = new Tiro(tablero.clone(), yo);
-		
-		try{
-			tee.opciones(2);
-			//System.out.println("Ej2 \n" + tee.tab);
-		}catch(Exception e){
-			System.out.println("whysky1");
-		}
-		
-		mini.add(tee);
-		*/
-		//System.out.println(mini.toString());
 		
 		System.out.println("--------------Pruebas minimacs------------");
 	}
 	
-	public void eligeOp(Tiro t){
+	public void eligeOp(ArbolBinario<Tiro>.Vertice v){
 	
+		System.out.println("1.3");
 		//Revisar caso null
-		ArbolBinario<Tiro>.Vertice  v = mini.vertice(mini.busca(t));
-		ArbolBinario<Tiro>.Vertice  i = mini.vertice(v.izquierdo());
-		ArbolBinario<Tiro>.Vertice  d = mini.vertice(v.derecho());
 		
-		eligeOp(i.get());
-		eligeOp(d.get());
-						
-		if(t.participante.getColor().equals("Color 1")){
-			t.setPuntuacion(minimo(i.get().getPuntuacion(), d.get().getPuntuacion()));	
+		if(v == null){
+			
+			return;
+			
+		}	
+		
+		Tiro t = v.get();
+		//ArbolBinario<Tiro>.Vertice  v = mini.vertice(mini.busca(t));
+		ArbolBinario<Tiro>.Vertice  i = null;
+		ArbolBinario<Tiro>.Vertice  d = null;
+		
+		if(v.hayIzquierdo()){
+		
+			i = mini.vertice(v.izquierdo());
+			
 		}
-		else if(t.participante.getColor().equals("Color 2")){
-			t.setPuntuacion(minimo(i.get().getPuntuacion(), d.get().getPuntuacion()));	
+		
+		if(v.hayDerecho()){
+		
+			d = mini.vertice(v.derecho());
+			
 		}
-
+		//if(i != null){
+		eligeOp(i);
+			//return;
+		//}
+		//if(d != null){
+		eligeOp(d);
+			//return;
+		//}
+		
+		if(v == mini.vertice(mini.raiz())){		
+			
+			t.setPuntuacion(max(i.get().getPuntuacion(), d.get().getPuntuacion()));
+			
+			String a = "";
+			
+			if(max(i.get().getPuntuacion(), d.get().getPuntuacion()) ==  i.get().getPuntuacion()){
+				a = "izquierdo";
+			}
+			
+			if(max(i.get().getPuntuacion(), d.get().getPuntuacion()) ==  d.get().getPuntuacion()){
+				a = "derecho";
+			}
+			
+			//if(a.contains("derecho")) t.opciones(2);
+			//if(a.contains("izquierdo")) t.opciones(1);
+			
+			//t.tab.dibujaTablero();//Creo que aquí es el error
+			
+			System.out.println("He llegado a la raíz y elijo " + t.getPuntuacion() + " " + a);
+			
+			//return;
+		}
+		
+		if(v.hayDerecho() && v.hayIzquierdo()){
+		
+			if(t.participante.getColor().equals("Color 1")){
+				t.setPuntuacion(max(i.get().getPuntuacion(), d.get().getPuntuacion()));	
+				//return;
+			}
+			else if(t.participante.getColor().equals("Color 2")){
+				t.setPuntuacion(min(i.get().getPuntuacion(), d.get().getPuntuacion()));	
+				//return;
+			}
+		}
+		
+		if(!t.tab.puedoMoverme(t.participante)){
+			
+				if(t.participante.getColor().equals("Color 1")){
+				
+					t.setPuntuacion(1);
+					//return;
+					
+				}else if(t.participante.getColor().equals("Color 2")){
+				
+					t.setPuntuacion(-1);
+					//return;		
+				}
+		
+		}
+		
+		if(t.participante.getColor().contains("Color 1")){
+				
+			System.out.println("yoooooo");
+			if(!t.tab.puedoMoverme(yo)){
+				
+				t.setPuntuacion(-1);
+				//return;				
+			
+			}
+			
+		}
+		
+		if(t.participante.getColor().contains("Color 2")){
+			
+			System.out.println("contrincante");
+			if(!t.tab.puedoMoverme(contrincante)){
+				
+				t.setPuntuacion(1);				
+				//return;
+								
+			}
+			
+		}
+		
+		System.out.println(v.get());
+		//}
+		return;
+		
 	}
 	
 	
@@ -267,7 +348,7 @@ public class Maquina{
       * @param b el segundo elemento.
       * @return el mínimo entre estos dos números.
      */
-    private int max(int a, int b){
+    private int min(int a, int b){
     	if(a < b){
     		return a;
     	}else if(b < a){

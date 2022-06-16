@@ -13,7 +13,7 @@ public class Tiro{
 	private int puntuacion;
 	protected String tablerillo;
 	protected Tablero tab;//Aguas, aquí no existe el clone, estaba en privado
-	private String[] nodos;
+	//private String[] nodos;
 	protected Jugador participante;
 	
 	public Tiro(Tablero t, Jugador j){
@@ -21,7 +21,7 @@ public class Tiro{
 		this.participante = j;
 		this.tab = t.clone();
 		puntuacion = 0;
-		nodos = t.getColores().clone();
+		//nodos = t.getColores().clone();
 		tablerillo = t.toString();		
 				
 	}
@@ -40,13 +40,16 @@ public class Tiro{
 	
 	public String toString(){
 	
-		String regresa = new String();
+		String regresa = "+++++++++++++++++++++++++++++++++++++++++++++";
 		regresa = "El participante es: " + participante + "\n";
 		regresa = regresa + tab + "\n";
 		regresa = regresa + "Esquinas del 1 al 5\n"; 
+		String[] nodos = tab.getColores();
 		for(int i = 0; i < nodos.length; i++){
 			regresa = regresa + (i+1) + " " + nodos[i] + "\n";		
 		}
+		regresa = regresa + " Puntuacion " + this.puntuacion;
+		regresa = regresa + "\n+++++++++++++++++++++++++++++++++++++++++++++";
 		return regresa;
 	}
 	

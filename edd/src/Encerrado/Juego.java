@@ -649,9 +649,12 @@ public class Juego{
 				
 				if(ahora == null){
 				//System.out.println("                                  \n\033[30m\033[40m" + ahora + "\033[49m\033[39m");	
-					try{					
+					try{
+										
 						m.tira();
+						
 					}catch(IllegalArgumentException iea){
+						tablero.dibujaTablero();
 						System.out.println("Plastica");
 						break;
 					}

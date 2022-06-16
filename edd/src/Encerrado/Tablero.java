@@ -484,7 +484,7 @@ public class Tablero{
 	 */
 	public void mueve(Jugador j, int p, int f){
 	
-		if(j == null){
+		if(j == null){//Qué ondaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 			System.out.println("pendiente");
 			return;
 		}
@@ -645,14 +645,13 @@ public class Tablero{
 			
 			}
 			
-			System.out.println("----------------------------------------------------primero fui yo");
 
 		for(int i = 0; i < color.length; i++){
 				//System.out.println("- " + i + " - " + color[i] );
 				System.out.println("(tavblero)Color final "+ i + " " + color[i]);
 				
 			}
-			
+			System.out.println("----------------------------------------------------primero fui yo");
 		//dibujaTablero();
 	}
 	
@@ -729,7 +728,8 @@ public class Tablero{
 		boolean a = false;
 
 		for(int i = 0; i < color.length; i++){
-			if(color[i] != null)
+			
+			//if(color[i] != null)
 			//System.out.println(!color[i].equals(tinte) + " caki " + i );
 			
 			if(color[i] != null && !color[i].equals(tinte)){
