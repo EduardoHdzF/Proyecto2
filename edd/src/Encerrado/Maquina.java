@@ -75,7 +75,7 @@ public class Maquina{
 		
 		Cola<Tiro> cola = new Cola<Tiro>();
 		
-		Tiro t = new Tiro(tablero.clone(), contrincante);
+		Tiro t = new Tiro(tablero, yo);//Estaba tablero.clone()
 		
 		mini.add(t);
 		
@@ -113,7 +113,9 @@ public class Maquina{
 		
 		
 		eligeOp(mini.vertice(mini.raiz()));
+		this.tablero = t.tab;
 		System.out.println(mini.toString());
+		System.out.println(this.tablero);
 		
 	}
 	
@@ -208,9 +210,6 @@ public class Maquina{
 	
 	public void eligeOp(ArbolBinario<Tiro>.Vertice v){
 	
-		System.out.println("1.3");
-		//Revisar caso null
-		
 		if(v == null){
 			
 			return;
@@ -218,7 +217,7 @@ public class Maquina{
 		}	
 		
 		Tiro t = v.get();
-		//ArbolBinario<Tiro>.Vertice  v = mini.vertice(mini.busca(t));
+	
 		ArbolBinario<Tiro>.Vertice  i = null;
 		ArbolBinario<Tiro>.Vertice  d = null;
 		
@@ -233,16 +232,13 @@ public class Maquina{
 			d = mini.vertice(v.derecho());
 			
 		}
-		//if(i != null){
+				
 		eligeOp(i);
-			//return;
-		//}
-		//if(d != null){
+	
 		eligeOp(d);
-			//return;
-		//}
 		
-		if(v == mini.vertice(mini.raiz())){		
+		
+		if(!v.hayPadre()){		
 			
 			t.setPuntuacion(max(i.get().getPuntuacion(), d.get().getPuntuacion()));
 			
@@ -256,25 +252,25 @@ public class Maquina{
 				a = "derecho";
 			}
 			
-			//if(a.contains("derecho")) t.opciones(2);
-			//if(a.contains("izquierdo")) t.opciones(1);
+			if(a.contains("derecho")) t.opciones(2);
+			if(a.contains("izquierdo")) t.opciones(1);
 			
 			//t.tab.dibujaTablero();//Creo que aquí es el error
 			
 			System.out.println("He llegado a la raíz y elijo " + t.getPuntuacion() + " " + a);
 			
-			//return;
+			return;
 		}
 		
 		if(v.hayDerecho() && v.hayIzquierdo()){
 		
 			if(t.participante.getColor().equals("Color 1")){
 				t.setPuntuacion(max(i.get().getPuntuacion(), d.get().getPuntuacion()));	
-				//return;
+				return;
 			}
 			else if(t.participante.getColor().equals("Color 2")){
 				t.setPuntuacion(min(i.get().getPuntuacion(), d.get().getPuntuacion()));	
-				//return;
+				return;
 			}
 		}
 		
@@ -283,23 +279,23 @@ public class Maquina{
 				if(t.participante.getColor().equals("Color 1")){
 				
 					t.setPuntuacion(1);
-					//return;
+					return;
 					
 				}else if(t.participante.getColor().equals("Color 2")){
 				
 					t.setPuntuacion(-1);
-					//return;		
+					return;		
 				}
 		
 		}
 		
 		if(t.participante.getColor().contains("Color 1")){
 				
-			System.out.println("yoooooo");
+			
 			if(!t.tab.puedoMoverme(yo)){
 				
 				t.setPuntuacion(-1);
-				//return;				
+				return;				
 			
 			}
 			
@@ -307,19 +303,16 @@ public class Maquina{
 		
 		if(t.participante.getColor().contains("Color 2")){
 			
-			System.out.println("contrincante");
+			
 			if(!t.tab.puedoMoverme(contrincante)){
 				
 				t.setPuntuacion(1);				
-				//return;
+				return;
 								
 			}
 			
 		}
-		
-		System.out.println(v.get());
-		//}
-		return;
+	
 		
 	}
 	

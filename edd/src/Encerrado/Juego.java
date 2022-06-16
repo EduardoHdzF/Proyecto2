@@ -652,7 +652,11 @@ public class Juego{
 					try{
 										
 						m.tira();
-						
+						tablero = m.tablero;
+						//String[] e = tablero.getColores();
+						//for(int q = 0; q < e.length; q++){
+							//System.out.println(e[q]);	
+						//}
 					}catch(IllegalArgumentException iea){
 						tablero.dibujaTablero();
 						System.out.println("Plastica");
