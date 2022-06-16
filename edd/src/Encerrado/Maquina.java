@@ -86,7 +86,7 @@ public class Maquina{
 		int altura = mini.altura();
 		
 		//Nos ayuda a saber el número de nodos de acuerdo a la profundidad 3.		
-		int f = potenciaDos(3);
+		int f = potenciaDos(10);
 		
 		while(mini.size() < f-2){
 		
@@ -114,8 +114,8 @@ public class Maquina{
 		
 		eligeOp(mini.vertice(mini.raiz()));
 		this.tablero = t.tab;
-		System.out.println(mini.toString());
-		System.out.println(this.tablero);
+		//System.out.println(mini.toString());
+		//System.out.println(this.tablero);
 		
 	}
 	
