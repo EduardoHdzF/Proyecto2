@@ -50,6 +50,17 @@ public class Maquina{
 	
 	}
 	
+	public boolean getAzar(){
+	
+		return this.azar;
+		
+	}
+	
+	public boolean getMinimax(){
+	
+		return this.minimax;	
+		
+	}
 	public void setMinimax(boolean m){
 	
 		this.minimax = m;
@@ -73,9 +84,11 @@ public class Maquina{
 	
 		System.out.println("          \033[41mTurno de la Máquina\033[49m");
 		
+		mini = new ArbolBinarioCompleto<Tiro>();
+		
 		Cola<Tiro> cola = new Cola<Tiro>();
 		
-		Tiro t = new Tiro(tablero, yo);//Estaba tablero.clone()
+		Tiro t = new Tiro(tablero.clone(), yo);//Estaba tablero.clone()
 		
 		mini.add(t);
 		
@@ -86,12 +99,13 @@ public class Maquina{
 		int altura = mini.altura();
 		
 		//Nos ayuda a saber el número de nodos de acuerdo a la profundidad 3.		
-		int f = potenciaDos(10);
+		int f = potenciaDos(3);
 		
 		while(mini.size() < f-2){
 		
 			if(mini.size() == (potenciaDos(mini.altura()+1)-1)){
 				altura = mini.altura();
+				System.out.println("Altura " + altura);
 			}
 			
 			if(altura % 2 == 0){
@@ -113,8 +127,8 @@ public class Maquina{
 		
 		
 		eligeOp(mini.vertice(mini.raiz()));
-		this.tablero = t.tab;
-		//System.out.println(mini.toString());
+		//this.tablero = t.tab;
+		System.out.println(mini.toString());
 		//System.out.println(this.tablero);
 		
 	}
@@ -133,41 +147,85 @@ public class Maquina{
     
 	public void tMinimax(Cola<Tiro> cola, Tiro t, Jugador jug){
 	
-		
-		
+			
 		System.out.println("--------------------------------Pruebas de arbol--------------");		
 			
 		
 		Tiro te = new Tiro(t.tab.clone(), jug);		//new Tiro(tablero.clone(), yo);
 								
-		
-		try{
-			/* Aqui se puede mejorar el t.opciones para que sea más facil elegir puntuación
-			 * se me ocurrió poner el jugador de manera distinta, ya que se elegirá al jugador contrario(por lo de minimax)
-			*/
-			te.opciones(1);
-		
-		}catch(Exception e){
-			
-			//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));		
-			if(!te.tab.puedoMoverme(jug)){	
-			
+		if(t.valido){
+			try{
+				/* 
+				 * Aqui se puede mejorar el t.opciones para que sea más facil elegir puntuación
+				 * se me ocurrió poner el jugador de manera distinta, ya que se elegirá al jugador contrario(por lo de minimax)
+				*/
+				int p = te.tab.posVacia();
+				
 				if(jug.getColor().equals("Color 1")){
-				
-					te.setPuntuacion(1);
-				
+					
+					try{
+						//te.tab.mueve(yo, p, 1);
+						te.tab.clone().mueve(contrincante, p, 1);
+					}catch(Exception e){
+						//te.setPuntuacion(-1);
+						te.valido = false;
+						throw new Exception();
+					}
+					/*
+					if(!te.tab.puedoMoverme(yo)){//No se puede mover el izquierdo
+						
+						
+						throw new Exception();
+					}*/				
+								
 				}else if(jug.getColor().equals("Color 2")){
-				
-					te.setPuntuacion(-1);
+					
+					
+					try{
+						//te.tab.mueve(contrincante, p, 1);
+						te.tab.clone().mueve(yo, p, 1);
+					}catch(Exception e){
+						//te.setPuntuacion(1);
+						te.valido = false;
+						throw new Exception();
+					}
+					/*
+					if(!te.tab.puedoMoverme(contrincante)){
+						
+						te.setPuntuacion(1);
+						throw new Exception();	
+							
+					}*/
 				
 				}
-				mini.add(te);
-				cola.push(te);
+				
+				te.opciones(1);
+			
+					
+			}catch(Exception e){
+				
+				
+				//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));		
+				if(!te.tab.puedoMoverme(jug)){	
+					
+					
+					if(jug.getColor().equals("Color 1")){
+							
+						te.setPuntuacion(1);
+					
+					}else if(jug.getColor().equals("Color 2")){
+					
+						te.setPuntuacion(-1);
+					
+					}
+					//mini.add(te);
+					//cola.push(te);
+					
+				}
+				//return;
+				//System.out.println("whysky");
 				
 			}
-			//return;
-			//System.out.println("whysky");
-			
 		}
 		
 		mini.add(te);
@@ -175,30 +233,71 @@ public class Maquina{
 		
 		te = new Tiro(t.tab.clone(), jug);
 		
-		try{
-		
-			te.opciones(2);
-		
-		}catch(Exception e){
-			
-			//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));
-			if(!te.tab.puedoMoverme(jug)){
+		if(t.valido){
+			try{
+				int p = te.tab.posVacia();
 				
 				if(jug.getColor().equals("Color 1")){
-				
-					te.setPuntuacion(1);
-				
-				}else if(jug.getColor().equals("Color 2")){
-				
+					
+					
+					try{
+						//te.tab.mueve(yo, p, 2);
+						te.tab.clone().mueve(contrincante, p, 2);
+					}catch(Exception e){
+						//te.setPuntuacion(-1);
+						te.valido = false;
+						throw new Exception();
+					}
+					/*
+					if(!te.tab.puedoMoverme(yo)){
 					te.setPuntuacion(-1);
+					System.out.println("2.1");
+						throw new Exception();
+					}*/				
+								
+				}else if(jug.getColor().equals("Color 2")){
+					
+					try{
+						//te.tab.mueve(contrincante, p, 2);
+						te.tab.clone().mueve(yo, p, 2);
+					}catch(Exception e){
+						//te.setPuntuacion(1);
+						te.valido = false;
+						throw new Exception();
+					}
+					/*
+					if(!te.tab.puedoMoverme(contrincante)){
+						
+						te.setPuntuacion(1);
+						System.out.println("2.2");
+						throw new Exception();	
+							
+					}*/
 				
 				}
-				mini.add(te);
-				cola.push(te);
+				te.opciones(2);
+			
+			}catch(Exception e){
 				
+				//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));
+				if(!te.tab.puedoMoverme(jug)){
+					
+					if(jug.getColor().equals("Color 1")){
+					
+						te.setPuntuacion(1);
+					
+					}else if(jug.getColor().equals("Color 2")){
+					
+						te.setPuntuacion(-1);
+					
+					}
+					//mini.add(te);
+					//cola.push(te);
+					
+				}
+				System.out.println("whysky");
+				//return;
 			}
-			System.out.println("whysky");
-			//return;
 		}
 		
 		mini.add(te);
@@ -212,6 +311,7 @@ public class Maquina{
 	
 		if(v == null){
 			
+			System.out.println("PErro");
 			return;
 			
 		}	
@@ -245,20 +345,30 @@ public class Maquina{
 			String a = "";
 			
 			if(max(i.get().getPuntuacion(), d.get().getPuntuacion()) ==  i.get().getPuntuacion()){
-				a = "izquierdo";
+				if(i.get().valido){				
+					a = "izquierdo";
+				}else{
+					a = "derecho";	
+				}
 			}
 			
 			if(max(i.get().getPuntuacion(), d.get().getPuntuacion()) ==  d.get().getPuntuacion()){
-				a = "derecho";
+				if(d.get().valido){
+					a = "derecho";
+				}else{
+					a = "izquierdo";
+				}
+				
 			}
-			
-			if(a.contains("derecho")) t.opciones(2);
-			if(a.contains("izquierdo")) t.opciones(1);
-			
-			//t.tab.dibujaTablero();//Creo que aquí es el error
-			
 			System.out.println("He llegado a la raíz y elijo " + t.getPuntuacion() + " " + a);
-			
+			try{
+				int p = tablero.posVacia();
+				if(a.contains("derecho")) tablero.mueve(yo, p, 2);//t.opciones(2);
+				if(a.contains("izquierdo")) tablero.mueve(yo, p, 1);//t.opciones(1);
+			}catch(Exception e){
+				System.out.println("Que pedo con esto");
+			}
+			//t.tab.dibujaTablero();//Creo que aquí es el error	
 			return;
 		}
 		
@@ -312,6 +422,8 @@ public class Maquina{
 			}
 			
 		}
+		
+		return;
 	
 		
 	}

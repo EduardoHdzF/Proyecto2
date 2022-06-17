@@ -15,6 +15,7 @@ public class Tiro{
 	protected Tablero tab;//Aguas, aquí no existe el clone, estaba en privado
 	//private String[] nodos;
 	protected Jugador participante;
+	protected boolean valido;//Nos ayuda para ver si se puede hacer el movimiento de alguna ficha o si ya no
 	
 	public Tiro(Tablero t, Jugador j){
 		
@@ -23,7 +24,7 @@ public class Tiro{
 		puntuacion = 0;
 		//nodos = t.getColores().clone();
 		tablerillo = t.toString();		
-				
+		valido = true;			
 	}
 	
 	public void setPuntuacion(int a){
