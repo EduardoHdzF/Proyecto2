@@ -5,8 +5,8 @@ import edd.src.Estructuras.*;
 
 /**
  * Clase Jugador
-* @author Estrada García Luis Gerardo - 319013832
-* @author Hernandez Floriano Eduardo - 319121498
+ * @author Estrada García Luis Gerardo - 319013832
+ * @author Hernandez Floriano Eduardo - 319121498
  */
 public class Jugador{
 	

@@ -12,8 +12,7 @@ public class Tiro{
 	
 	private int puntuacion;
 	protected String tablerillo;
-	protected Tablero tab;//Aguas, aquí no existe el clone, estaba en privado
-	//private String[] nodos;
+	protected Tablero tab;	
 	protected Jugador participante;
 	protected boolean valido;//Nos ayuda para ver si se puede hacer el movimiento de alguna ficha o si ya no
 	
@@ -22,7 +21,6 @@ public class Tiro{
 		this.participante = j;
 		this.tab = t.clone();
 		puntuacion = 0;
-		//nodos = t.getColores().clone();
 		tablerillo = t.toString();		
 		valido = true;			
 	}
@@ -57,18 +55,17 @@ public class Tiro{
 	public void opciones(int i){
 		
 		int v = tab.posVacia();
-		//int a = aparicionFicha(1, ){
+		
 		if(i == 1){
 		
 			tab.mueve(participante, v, 1);
-			//tablerillo = tab.dibujo;
-		//}
+		
 		}else if(i == 2){
 			
 			tab.mueve(participante, v, 2);
 		
 		}else{
-			System.out.println("perrrooo(opciones)");			
+			throw new IllegalArgumentException();		
 		}
 	
 	}	

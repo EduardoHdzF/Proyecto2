@@ -5,8 +5,8 @@ import java.util.Random;
 
 /**
  * Clase Maquina, es donde se moverá nuestro árbol
-* @author Estrada García Luis Gerardo - 319013832
-* @author Hernandez Floriano Eduardo - 319121498
+ * @author Estrada García Luis Gerardo - 319013832
+ * @author Hernandez Floriano Eduardo - 319121498
  */
 public class Maquina{
 
@@ -28,6 +28,7 @@ public class Maquina{
 		yo.setColor("Color 2");
 		contrincante.setFicha("\033[91m");
 		contrincante.setColor("Color 1");
+		
 	}
 	
 	public Maquina(Tablero t){
@@ -67,7 +68,10 @@ public class Maquina{
 	
 	}
 	
-	public void tira(){
+	/*
+	 * Nos efectúa el tiro de la máquina de acuerdo a la estrategia actual.
+	 */
+	public void tira()throws Exception{
 		
 		if(minimax){
 		
@@ -80,32 +84,43 @@ public class Maquina{
 		}
 	}
 	
+	/**
+	 * Aquí lo que nos hace es el tiro usando minimax
+	 */
 	public void mini(){
 	
 		System.out.println("          \033[41mTurno de la Máquina\033[49m");
+		
+		try{
+			    	    
+			Thread.sleep(2000);
+			
+		}catch(Exception e){
+		
+			System.out.println(e);
+			
+		}
 		
 		mini = new ArbolBinarioCompleto<Tiro>();
 		
 		Cola<Tiro> cola = new Cola<Tiro>();
 		
-		Tiro t = new Tiro(tablero.clone(), yo);//Estaba tablero.clone()
+		Tiro t = new Tiro(tablero.clone(), yo);
 		
 		mini.add(t);
 		
 		cola.push(t);
-		
-		System.out.println("Altura inicial" + mini.altura());
-		
+				
 		int altura = mini.altura();
 		
-		//Nos ayuda a saber el número de nodos de acuerdo a la profundidad 3.		
-		int f = potenciaDos(3);
+		//Nos ayuda a saber el número de nodos de acuerdo a la profundidad 10.		
+		int f = potenciaDos(10);
 		
+		/* Nos ayuda a llenar el arbol de acuerdo a todos los tiros posibles hasta una profundidad de 10 */		
 		while(mini.size() < f-2){
 		
 			if(mini.size() == (potenciaDos(mini.altura()+1)-1)){
-				altura = mini.altura();
-				System.out.println("Altura " + altura);
+				altura = mini.altura();				
 			}
 			
 			if(altura % 2 == 0){
@@ -119,21 +134,17 @@ public class Maquina{
 			}			
 			
 		}
+						
 		
-		//Tiro v = cola.pop();
-		//tMinimax(cola, v, yo);
-		System.out.println("Altura " + mini.altura() + " con elementos " + mini.size());
-		
-		
-		
-		eligeOp(mini.vertice(mini.raiz()));
-		//this.tablero = t.tab;
-		System.out.println(mini.toString());
-		//System.out.println(this.tablero);
+		eligeOp(mini.vertice(mini.raiz()));	
 		
 	}
 	
-	 private int potenciaDos(int a){
+	/**
+     * Nos devuelte el resultado de 2^a
+     * @param a el número al que será elevado el 2
+     */
+    private int potenciaDos(int a){
     	
     	int f = 1;
     	
@@ -145,57 +156,51 @@ public class Maquina{
     	return f;
     }
     
+    /**
+     * Nos hace los posibles tiros de acuerdo al tiro dado y al jugador dado
+     * @param cola, nos ayuda para hacer los tiros correspondientes al nodo padre.
+     * @param t, tiro que se ocupará como referencia para los siguientes tiros.
+     * @param jug, el jugador que realizará los movimientos.
+     */
 	public void tMinimax(Cola<Tiro> cola, Tiro t, Jugador jug){
-	
-			
-		System.out.println("--------------------------------Pruebas de arbol--------------");		
-			
+				
+		Tiro te = new Tiro(t.tab.clone(), jug);
 		
-		Tiro te = new Tiro(t.tab.clone(), jug);		//new Tiro(tablero.clone(), yo);
-								
+		//¿Puedo hacer movimientos con la disposición actual del tablero? si no, solo lo agrega al árbol
 		if(t.valido){
+		
 			try{
-				/* 
-				 * Aqui se puede mejorar el t.opciones para que sea más facil elegir puntuación
-				 * se me ocurrió poner el jugador de manera distinta, ya que se elegirá al jugador contrario(por lo de minimax)
-				*/
+				
 				int p = te.tab.posVacia();
 				
 				if(jug.getColor().equals("Color 1")){
-					
+					/*Nos permite verificar si la ficha que voy a mover se puede o no, si no, ya no se podrá hacer ningún movimiento
+					 *con esta posición del tablero */
+					  
 					try{
-						//te.tab.mueve(yo, p, 1);
+					
 						te.tab.clone().mueve(contrincante, p, 1);
+						
 					}catch(Exception e){
-						//te.setPuntuacion(-1);
+						
 						te.valido = false;
 						throw new Exception();
-					}
-					/*
-					if(!te.tab.puedoMoverme(yo)){//No se puede mover el izquierdo
 						
-						
-						throw new Exception();
-					}*/				
+					}								
 								
 				}else if(jug.getColor().equals("Color 2")){
 					
-					
+					/*Nos permite verificar si la ficha que voy a mover se puede o no, si no, ya no se podrá hacer ningún movimiento
+					 *con esta posición del tablero */
 					try{
-						//te.tab.mueve(contrincante, p, 1);
+											
 						te.tab.clone().mueve(yo, p, 1);
+						
 					}catch(Exception e){
-						//te.setPuntuacion(1);
+						
 						te.valido = false;
 						throw new Exception();
-					}
-					/*
-					if(!te.tab.puedoMoverme(contrincante)){
-						
-						te.setPuntuacion(1);
-						throw new Exception();	
-							
-					}*/
+					}				
 				
 				}
 				
@@ -203,9 +208,7 @@ public class Maquina{
 			
 					
 			}catch(Exception e){
-				
-				
-				//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));		
+								
 				if(!te.tab.puedoMoverme(jug)){	
 					
 					
@@ -217,69 +220,65 @@ public class Maquina{
 					
 						te.setPuntuacion(-1);
 					
-					}
-					//mini.add(te);
-					//cola.push(te);
+					}					
 					
 				}
-				//return;
-				//System.out.println("whysky");
 				
 			}
-		}
+			
+		}else{
 		
+			te.valido = false;
+			
+		}	
+					
 		mini.add(te);
 		cola.push(te);
 		
 		te = new Tiro(t.tab.clone(), jug);
 		
 		if(t.valido){
+			
 			try{
 				int p = te.tab.posVacia();
 				
 				if(jug.getColor().equals("Color 1")){
 					
-					
+					/*Nos permite verificar si la ficha que voy a mover se puede o no, si no, ya no se podrá hacer ningún movimiento
+					 *con esta posición del tablero */
+					 
 					try{
-						//te.tab.mueve(yo, p, 2);
+						
 						te.tab.clone().mueve(contrincante, p, 2);
+						
 					}catch(Exception e){
-						//te.setPuntuacion(-1);
+						
 						te.valido = false;
 						throw new Exception();
-					}
-					/*
-					if(!te.tab.puedoMoverme(yo)){
-					te.setPuntuacion(-1);
-					System.out.println("2.1");
-						throw new Exception();
-					}*/				
+						
+					}							
 								
 				}else if(jug.getColor().equals("Color 2")){
 					
+					/*Nos permite verificar si la ficha que voy a mover se puede o no, si no, ya no se podrá hacer ningún movimiento
+					 *con esta posición del tablero */
+					 
 					try{
-						//te.tab.mueve(contrincante, p, 2);
+					
 						te.tab.clone().mueve(yo, p, 2);
+						
 					}catch(Exception e){
-						//te.setPuntuacion(1);
+						
 						te.valido = false;
 						throw new Exception();
-					}
-					/*
-					if(!te.tab.puedoMoverme(contrincante)){
 						
-						te.setPuntuacion(1);
-						System.out.println("2.2");
-						throw new Exception();	
-							
-					}*/
-				
+					}
+									
 				}
 				te.opciones(2);
 			
 			}catch(Exception e){
 				
-				//System.out.println("Puedo? " + te.tab.puedoMoverme(jug));
 				if(!te.tab.puedoMoverme(jug)){
 					
 					if(jug.getColor().equals("Color 1")){
@@ -290,33 +289,36 @@ public class Maquina{
 					
 						te.setPuntuacion(-1);
 					
-					}
-					//mini.add(te);
-					//cola.push(te);
+					}					
 					
 				}
-				System.out.println("whysky");
-				//return;
+				
 			}
+			
+		}else{
+		
+			te.valido = false;
+			
 		}
 		
 		mini.add(te);
 		cola.push(te);
-		
-		
-		System.out.println("--------------Pruebas minimacs------------");
+					
 	}
 	
+	/**
+	 * Asigna puntuaciones a los tiros y elige los más convenientes de acuerdo al arbol minimax
+	 * Lo hace haciendo un recorrido PostOrden del árbol.	 
+	 */
 	public void eligeOp(ArbolBinario<Tiro>.Vertice v){
 	
 		if(v == null){
-			
-			System.out.println("PErro");
+								
 			return;
 			
 		}	
 		
-		Tiro t = v.get();
+		
 	
 		ArbolBinario<Tiro>.Vertice  i = null;
 		ArbolBinario<Tiro>.Vertice  d = null;
@@ -337,6 +339,7 @@ public class Maquina{
 	
 		eligeOp(d);
 		
+		Tiro t = v.get();
 		
 		if(!v.hayPadre()){		
 			
@@ -345,6 +348,7 @@ public class Maquina{
 			String a = "";
 			
 			if(max(i.get().getPuntuacion(), d.get().getPuntuacion()) ==  i.get().getPuntuacion()){
+				
 				if(i.get().valido){				
 					a = "izquierdo";
 				}else{
@@ -353,6 +357,7 @@ public class Maquina{
 			}
 			
 			if(max(i.get().getPuntuacion(), d.get().getPuntuacion()) ==  d.get().getPuntuacion()){
+				
 				if(d.get().valido){
 					a = "derecho";
 				}else{
@@ -360,28 +365,33 @@ public class Maquina{
 				}
 				
 			}
-			System.out.println("He llegado a la raíz y elijo " + t.getPuntuacion() + " " + a);
-			try{
-				int p = tablero.posVacia();
-				if(a.contains("derecho")) tablero.mueve(yo, p, 2);//t.opciones(2);
-				if(a.contains("izquierdo")) tablero.mueve(yo, p, 1);//t.opciones(1);
-			}catch(Exception e){
-				System.out.println("Que pedo con esto");
-			}
-			//t.tab.dibujaTablero();//Creo que aquí es el error	
+			//System.out.println("He llegado a la raíz y elijo " + t.getPuntuacion() + " " + a);
+						
+			
+			int p = tablero.posVacia();
+			if(a.contains("derecho")) tablero.mueve(yo, p, 2);
+			if(a.contains("izquierdo")) tablero.mueve(yo, p, 1);
+				
+			
 			return;
+		
 		}
 		
 		if(v.hayDerecho() && v.hayIzquierdo()){
 		
 			if(t.participante.getColor().equals("Color 1")){
+			
 				t.setPuntuacion(max(i.get().getPuntuacion(), d.get().getPuntuacion()));	
 				return;
+				
 			}
 			else if(t.participante.getColor().equals("Color 2")){
+			
 				t.setPuntuacion(min(i.get().getPuntuacion(), d.get().getPuntuacion()));	
 				return;
+				
 			}
+			
 		}
 		
 		if(!t.tab.puedoMoverme(t.participante)){
@@ -474,13 +484,22 @@ public class Maquina{
 		
 		System.out.println("          \033[41mTurno de la Máquina\033[49m");
 		
+		try{
+			    	    
+			Thread.sleep(2000);
+			
+		}catch(Exception e){
+		
+			System.out.println(e);
+			
+		}
+		
 		int p = tablero.posVacia();
 		
 		Random random = new Random();
 		
 		int valor = random.nextInt((10 - 1) + 1) + 1;
-		
-		
+				
 		
 		if(valor <= 5){
 			try{				
@@ -497,7 +516,7 @@ public class Maquina{
 			}			
 		}
 		
-		tablero.dibujaTablero();	
+		//tablero.dibujaTablero();	
 	}
 }
 
