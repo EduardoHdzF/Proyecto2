@@ -3,9 +3,8 @@ package edd.src.Estructuras;
 /**
 * Clase para los árboles AVL: La diferencia de las alturas de ambos hijos de cada nodo
 * es a lo más 1.
-* @author Estrada García Luis Gerardo - 319013832
-* @author Hernandez Floriano Eduardo - 319121498
-*/ 
+* @author Estrada García Luis Gerardo 
+* @author Hernandez Floriano Eduardo 
 
 public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 	
