@@ -3,7 +3,6 @@ package edd.src.Estructuras;
 public class Pila<T> extends PushPop<T>{
     
     
-    // Agregar al inicio.
     public void push(T elemento){
         if(elemento == null){
             throw new IllegalArgumentException("");
