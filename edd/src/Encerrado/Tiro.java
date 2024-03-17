@@ -5,8 +5,8 @@ import edd.src.Estructuras.*;
 
 /**
  * Clase Tiro, nos ayudará en el arbol para registrar los tiros posibles y obtener alguna puntuación.
- * @author Hernandez Floriano Eduardo - 319121498
- * @author Estrada García Luis Gerardo - 319013832
+ * @author Hernandez Floriano Eduardo - 
+ * @author Estrada García Luis Gerardo -
  */
 public class Tiro{
 	
