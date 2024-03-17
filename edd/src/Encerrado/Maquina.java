@@ -5,8 +5,8 @@ import java.util.Random;
 
 /**
  * Clase Maquina, es donde se moverá nuestro árbol
- * @author Estrada García Luis Gerardo - 319013832
- * @author Hernandez Floriano Eduardo - 319121498
+ * @author Estrada García Luis Gerardo 
+ * @author Hernandez Floriano Eduardo 
  */
 public class Maquina{
 
