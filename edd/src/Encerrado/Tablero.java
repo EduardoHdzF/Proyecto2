@@ -5,8 +5,8 @@ import java.util.Random;
 
 /**
  * Clase Tablero, nos representa el tablero y las fichas.
- * @author Hernandez Floriano Eduardo - 319121498
- * @author Estrada García Luis Gerardo - 319013832 
+ * @author Hernandez Floriano Eduardo 
+ * @author Estrada García Luis Gerardo  
  */
 public class Tablero{
 
